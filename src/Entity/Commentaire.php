@@ -30,12 +30,6 @@ class Commentaire
     #[ORM\Column]
     private ?bool $statut = null;
 
-    #[ORM\Column()]
-    private ?DateTimeImmutable $created_at = null;
-
-    #[ORM\Column()]
-    private ?DateTimeImmutable $updated_at = null;
-
     public function __construct()
     {
         $this->statut = false;

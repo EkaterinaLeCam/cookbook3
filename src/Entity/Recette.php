@@ -61,12 +61,6 @@ class Recette
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column()]
-    private ?DateTimeImmutable $created_at = null;
-
-    #[ORM\Column()]
-    private ?DateTimeImmutable $updated_at = null;
-
     #[ORM\ManyToOne(inversedBy: 'recettes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;

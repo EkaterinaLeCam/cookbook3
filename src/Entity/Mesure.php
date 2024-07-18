@@ -30,12 +30,6 @@ class Mesure
     #[ORM\Column(length: 80)]
     private ?string $mesure = null;
 
-    #[ORM\Column()]
-    private ?DateTimeImmutable $created_at = null;
-
-    #[ORM\Column()]
-    private ?DateTimeImmutable $updated_at = null;
-
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();

@@ -72,12 +72,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column()]
-    private ?DateTimeImmutable $created_at = null;
-
-    #[ORM\Column()]
-    private ?DateTimeImmutable $updated_at = null;
-
     public function __construct()
     {
         $this->notes = new ArrayCollection();

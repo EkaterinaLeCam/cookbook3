@@ -27,12 +27,6 @@ class Note
     #[ORM\Column]
     private ?int $etoile = null;
 
-    #[ORM\Column()]
-    private ?DateTimeImmutable $created_at = null;
-
-    #[ORM\Column()]
-    private ?DateTimeImmutable $updated_at = null;
-
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
