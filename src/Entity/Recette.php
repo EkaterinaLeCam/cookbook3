@@ -66,6 +66,10 @@ class Recette
 
     #[ORM\Column()]
     private ?DateTimeImmutable $updated_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
     
     public function __construct()
     {
@@ -270,6 +274,18 @@ class Recette
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
