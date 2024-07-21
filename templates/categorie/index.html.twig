@@ -4,6 +4,19 @@
 
 {% block body %}
 
-{{ dump(categories) }}
+{#{{ dump(categories) }}#}
+<div class="example-wrapper">
+  
+     <h5> {% for item in categories %}
+     <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_categorie_show", { id: item.id } )}} >{{ item.nom }}</a>
+            
+          </div>
+     </div>
+     </div>
+  {% endfor %}</h5>  
+</div>
 
 {% endblock %}

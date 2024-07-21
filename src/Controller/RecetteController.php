@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RecetteController extends AbstractController
 {
-    #[Route('/recettes', name: 'app_recette')]
+    #[Route('/recettes', name: 'app_recette', methods:['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
         return $this->render('recette/index.html.twig', [
@@ -20,7 +20,7 @@ class RecetteController extends AbstractController
             ),
         ]);
     }
-    #[Route('/recettes{id}', name: 'app_recette_one')]
+    #[Route('/recettes{id}', name: 'app_recette_one', methods:['GET'])]
     public function recette(Recette $recette): Response
     {
         return $this->render('recette/recette_one.html.twig', [

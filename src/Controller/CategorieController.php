@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/categories', name: 'app_categorie')]
+    #[Route('/categories', name: 'app_categorie', methods:['GET'])]
     public function index(
         CategorieRepository $categorieRepository
     ): Response
@@ -24,7 +24,7 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/categories/{id}', name: 'app_categorie_show')]
+    #[Route('/categories/{id}', name: 'app_categorie_show', methods:['GET'])]
     public function show(
         Categorie $categorie,
     ): Response

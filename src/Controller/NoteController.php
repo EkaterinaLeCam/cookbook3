@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class NoteController extends AbstractController
 {
-    #[Route('/notes', name: 'app_note')]
+    #[Route('/notes', name: 'app_note', methods:['GET'])]
     public function index(NoteRepository $noteRepository): Response
     {
         return $this->render('note/index.html.twig', [
@@ -20,7 +20,7 @@ class NoteController extends AbstractController
             ),
         ]);
     }
-    #[Route('/notes{id}', name: 'app_note_one')]
+    #[Route('/notes{id}', name: 'app_note_one', methods:['GET', 'POST'])]
     public function note(Note $note): Response
     {
         return $this->render('note/note_one.html.twig', [

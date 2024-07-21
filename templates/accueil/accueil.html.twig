@@ -3,5 +3,15 @@
 {% block title %} AccueilBookCook{% endblock %}
 
 {% block body %}
-
+{{ dump(recettes) }}
+{#<div class="card" style="width: 18rem;">
+{% for item in recettes %}
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.nom }}</h5>
+    <p class="card-text">{{ item.instruction }}</p>
+    <a href={{ path('app_recette_one', { id: item.id } )}} class="btn btn-primary">Voir la recette</a>
+  </div>
+   {% endfor %}
+</div>#}
 {% endblock %}
