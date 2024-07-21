@@ -10,6 +10,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
+
+
+
+
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 #[HasLifecycleCallbacks]
 class Categorie
