@@ -329,7 +329,15 @@
 					</div>
 				</div>
 				<div class="col-span-12 lg:col-span-8 lg:pl-11 w-full max-lg:mt-8 max-lg:max-w-2xl max-lg:mx-auto flex flex-col items-center">
-                    <div class="flex gap-7 overflow-x-scroll w-full">
+                    <div class="w-full mb-7">
+						<p class="font-manrope font-bold text-2xl leading-9">
+							Les commentaires
+						</p>
+						<a href="{{ path('app_recette_commentaire_new', { id: recette.id }) }}" class="cursor-pointer italic font-light text-indigo-600">
+							Ajouter un commentaire
+						</a>
+					</div>
+					<div class="flex gap-7 overflow-x-scroll w-full">
                         {% for item in recette.commentaires %}
                             <div class="min-w-full">
                                 <div class="flex items-center mb-7 max-lg:justify-center">

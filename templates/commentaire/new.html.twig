@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau commentaire
+{% endblock %}
+
+{% block body %}
+
+		<div class="max-w-md mx-auto">
+			<h1 class="text-2xl font-semibold text-center">Donnez votre avis sur la recette</h1>
+            {{ form_errors(form) }}
+
+            {{ form_start(form) }}
+				<div class="relative mb-6">
+                    {{ form_label(form.contenu) }}
+                    {{ form_widget(form.contenu, {
+                        attr: {
+                            class: "block w-full px-5 py-2.5 bg-white leading-7 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none"
+                        }
+                    }) }}
+					{{ form_widget(form.recette, {
+                        attr: {
+                            value: recette.id,
+                        }
+                    }) }}
+					{{ form_widget(form.auteur, {
+                        attr: {
+                            value: app.user.id,
+                        }
+                    }) }}
+				</div>
+				<button 
+                    type="submit"
+                    class="w-52 h-12 bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6 mb-6">
+                    Envoyer
+                </button>
+			{{ form_end(form) }}
+		</div>
+	{% endblock %}
