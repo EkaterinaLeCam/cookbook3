@@ -11,6 +11,7 @@ use Faker\Factory;
 use App\Entity\Utilisateur;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Cocur\Slugify\Slugify;
 
 class AppFixtures extends Fixture
 {
@@ -79,9 +80,13 @@ class AppFixtures extends Fixture
         // 500 recettes
         $recetteList = [];
         for ($i=0; $i < 500; $i++) { 
+            $nom = $faker->sentence(4);
+            $slug = new Slugify();
+            $slugOutput = $slug->slugify($nom);
             $recette = new Recette();
             $recette
-                ->setNom($faker->sentence(4))
+                ->setNom($nom)
+                ->setSlug($slugOutput)
                 ->setPreparation($faker->numberBetween(5, 200))
                 ->setCuisson($faker->numberBetween(0, 200))
                 ->setRepos($faker->numberBetween(0, 200))
