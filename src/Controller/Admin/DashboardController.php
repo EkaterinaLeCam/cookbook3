@@ -6,6 +6,7 @@ use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Ingredient;
 use App\Entity\Recette;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -28,16 +29,22 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Cookbook3');
     }
+    //aficher sur la page d'admin modifier ou supprimer un élément
+
+    public function configureCrud(): Crud
+    {
+    return parent::configureCrud()
+    ->showEntityActionsInlined();
+    }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Administrateur', 'fa fa-home');
-        yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
+        yield MenuItem::linkToCrud('Categories','fas fa-angle-double-down', Categorie::class);
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-list', Ingredient::class);
-        yield MenuItem::linkToCrud('Recettes', 'fas fa-list', Recette::class);
-        yield MenuItem::linkToCrud('Commentaires', 'fas fa-list', Commentaire::class);
+        yield MenuItem::linkToCrud('Recettes', 'fas fa-cutlery', Recette::class);
+        yield MenuItem::linkToCrud('Commentaires', 'fas fa-comments', Commentaire::class);
 
-        // yield MenuItem::linkToLogout('Déconnexion', 'fas fa-sign-out-alt');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
     }
 }
