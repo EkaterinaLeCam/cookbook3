@@ -1,7 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recettes{% endblock %}
+{% block title %}Recettes
+{% endblock %}
 
 {% block body %}
-{{ dump(recettes) }}
+
+	<section class="py-24">
+		<h2 class="font-manrope text-4xl font-bold text-gray-900 text-center mb-16">Tous les recettes</h2>
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+			{% for item in recettes %}
+				<div class="group border border-gray-300 rounded-2xl">
+					<div class="flex items-center">
+						<img src={{ item.image }} alt="blogs tailwind section" class="rounded-t-2xl w-full">
+					</div>
+					<div class="flex flex-col justify-between p-4 lg:p-6 transition-all duration-300 rounded-b-2xl group-hover:bg-gray-50">
+						<span class="text-indigo-600 font-medium mb-3 block">
+                        {% set total = 0 %}
+                        {% for note in item.notes %}
+                            {% set total = total + note.etoile %}
+                        {% endfor %}
+                        {% if total == 0 %}
+                            Pas encore notée
+                        {% else %}
+                            {{ total / item.notes|length }}/5 sur {{ item.notes|length }} notes
+                        {% endif %}
+						</span>
+						<h4 class="text-xl text-gray-900 font-medium leading-8 mb-5 min-h-20">
+							{{ item.nom }}
+						</h4>
+						<p class="text-gray-500 leading-6 mb-10">
+							{{ item.instruction|slice(0, 80) }}...
+						</p>
+						<a href={{ path('app_recette_one', { slug: item.slug } )}} class="cursor-pointer text-lg text-indigo-600 font-semibold">
+							Voir la fiche
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+
+
+	{{ dump(recettes) }}
 {% endblock %}
