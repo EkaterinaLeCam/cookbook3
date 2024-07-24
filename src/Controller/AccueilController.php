@@ -12,7 +12,7 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil', methods:['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
-        return $this->render('accueil/accueil.html.twig', [
+        return $this->render('page/accueil.html.twig', [
             'recettes' => $recetteRepository->findBy(
                 [],
                 ['id'=>'DESC'],10
