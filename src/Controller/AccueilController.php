@@ -20,4 +20,16 @@ class AccueilController extends AbstractController
             ),
         ]);
     }
+    #[Route('/conditions-generales', name: 'app_conditions_generales', methods:['GET'])]
+    public function conditions_generale(): Response
+    {
+        return $this->render('page/conditions-generales.html.twig' );
+       
+    }
+    #[Route('/contact', name: 'app_contact', methods:['GET', 'POST'])]
+    public function contact(): Response
+    {
+        return $this->render('page/contact.html.twig' );
+       
+    }
 }
