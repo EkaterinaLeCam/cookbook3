@@ -1,5 +1,16 @@
 # TODO
 
+Pour le 01/08
+
+- Finaliser toutes interfaces (admin, recette, commentaire, etc)
+- Masquer la fonction de modification des commentaires
+- Masquer la fonction de modification des notes
+- Ajouter la fonction de voir les commentaires
+- Ajouter la fonction de voir les categories
+- Ajouter la fonction de voir les notes
+- Ajouter la fonction de voir les ingredients
+
+---
 
 Pour le 25/07
 
