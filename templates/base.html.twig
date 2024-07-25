@@ -11,6 +11,7 @@
         {% endblock %}
 
 		{% block javascripts %}
+        <script src="https://cdn.tailwindcss.com"></script>
 			{% block importmap %}
 				{{ importmap('app') }}
 			{% endblock %}
@@ -18,7 +19,7 @@
     </head>
     <body>
     {# Navbar #}
-    <main class="max-w-screen-lg mx-auto">
+    <main >
         {% block body %}{% endblock %}
     </main>
     {# Footer #}
