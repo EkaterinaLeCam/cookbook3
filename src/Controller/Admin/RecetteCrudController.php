@@ -7,9 +7,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -30,11 +35,16 @@ class RecetteCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+         
+         
             IdField::new('id')->onlyOnDetail(),
             FormField::addPanel('Quelle est le nom de la recette ?')
                 ->setIcon('cube')
                 ->setHelp('Saisissez le nom de la recette'),
             TextField::new('nom'),
+
+            AssociationField::new('categorie')
+            ->setHelp('Choisissez la categorie de la recette'),
 
             FormField::addPanel('Avec une image c\'est mieux !')
                 ->setIcon('image')
@@ -42,7 +52,36 @@ class RecetteCrudController extends AbstractCrudController
             ImageField::new('image')
                 ->setUploadedFileNamePattern('[contenthash].[extension]')
                 ->setBasePath('uploads/recettes')
-                ->setUploadDir('public/uploads/recettes')
+                ->setUploadDir('public/uploads/recettes'),
+
+            FormField::addPanel('Les ingredients de la recette!')
+                ->setIcon('list')
+                ->setHelp('Choisissez le nom de l\'ingredient'),
+            //AssociationField::new('ingredients')->setHelp('Choisissez le nom de l\'ingredient'),
+            //CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
+            CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
+
+        
+            FormField::addPanel('Les instructions')
+                ->setIcon('utensils'),
+                
+            TextField::new('pays')->setHelp('Saisissez le pays d\'origine du plat'),
+            IntegerField::new('preparation')->setHelp('Saisissez le temps de preparation'),
+            IntegerField::new('cuisson')->setHelp('Saisissez le temps de cuisson'),
+            IntegerField::new('repos')->setHelp('Saisissez le temps de repos'),
+
+           
+            TextareaField::new('instruction')->setHelp('Saisissez les étapes de la préparation de recette'),
+            BooleanField::new('brouillon')->setHelp('Ne pas poublier pour le moment'),
+            FormField::addRow(),
+
+
+
+
+                
+
+           
+
             // TextEditorField::new('description'),
         ];
     }
