@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -64,7 +65,9 @@ class RecetteCrudController extends AbstractCrudController
         
             FormField::addPanel('Les instructions')
                 ->setIcon('utensils'),
-                
+            
+            CountryField::new('pays')->showName(false),
+            
             TextField::new('pays')->setHelp('Saisissez le pays d\'origine du plat'),
             IntegerField::new('preparation')->setHelp('Saisissez le temps de preparation'),
             IntegerField::new('cuisson')->setHelp('Saisissez le temps de cuisson'),
