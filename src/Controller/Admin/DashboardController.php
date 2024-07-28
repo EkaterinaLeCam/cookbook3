@@ -6,6 +6,7 @@ use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Ingredient;
 use App\Entity\Recette;
+use App\Repository\RecetteRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -15,13 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    private RecetteRepository $recetteRepository;
+    public function __construct(RecetteRepository $recetteRepository){
+        $this->recetteRepository = $recetteRepository;
+    }
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
-        return $this->render('admin/dashboard.html.twig');
+
+        $recettes=$this->recetteRepository->findAll();
+        return $this->render('admin/dashboard.html.twig', [
+            'recettes' => $recettes
+        ])
+        ;
     }
 
     public function configureDashboard(): Dashboard
