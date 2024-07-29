@@ -8,6 +8,7 @@ use App\Entity\Ingredient;
 use App\Entity\Mesure;
 use App\Entity\Note;
 use App\Entity\Recette;
+use App\Entity\Utilisateur;
 use App\Repository\RecetteRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Administrateur', 'fa fa-home');
+        yield MenuItem::linkToCrud('Utilisateur','fas fa-users', Utilisateur::class);
         yield MenuItem::linkToCrud('Categories','fas fa-angle-double-down', Categorie::class);
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-list', Ingredient::class);
         yield MenuItem::linkToCrud('Mesures', 'fa-solid fa-scale-unbalanced-flip', Mesure::class);
