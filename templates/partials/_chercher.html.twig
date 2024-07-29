@@ -1,0 +1,29 @@
+<div class="relative max-w-xs border border-solid border-gray-200 rounded-2xl p-4 transition-all duration-500 col-span-12  xl:p-7   lg:col-span-3 md:col-span-6 ">
+	<div class=" mb-6 ">
+    <form class="flex items-center max-lg:justify-center gap-0">
+                    <div class="relative">
+                        <input type="search" id="default-search"
+                            class="block w-full max-w-xs px-4 py-2 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none leading-relaxed"
+                            placeholder="saisissez le nom de recette " required="">
+                    </div>
+                    <button class="p-1 px-2" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M21 21L18.5 18.5M19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19C13.2006 19 15.1937 18.1115 16.6401 16.6736C18.0976 15.2246 19 13.2177 19 11Z"
+                                stroke="black" stroke-width="1.6" stroke-linecap="round"></path>
+                        </svg>
+                    </button>
+                </form>
+	</div>
+	<h4 class="text-base font-semibold text-gray-900 mb-2 capitalize transition-all duration-500 ">Cherchez une recette pour votre repas!</h4>
+	<p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 mb-4">
+		Il y a actuellement
+		{{recettes|length}}
+		recettes</p>
+
+</div>
+
+
+
+
+                                                        

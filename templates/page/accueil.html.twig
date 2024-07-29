@@ -3,6 +3,8 @@
 {% block title %} AccueilBookCook{% endblock %}
 
 {% block body %}
+   {# Bar de Recherche#}
+    {% include 'partials/_chercher.html.twig' %}
 {#{{ dump(recettes) }}#}
 {#<div class="card" style="width: 18rem;">
 {% for item in recettes %}
@@ -14,4 +16,5 @@
   </div>
    {% endfor %}
 </div>#}
+ 
 {% endblock %}

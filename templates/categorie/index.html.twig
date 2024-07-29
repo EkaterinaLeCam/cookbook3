@@ -8,14 +8,14 @@
 	{#{{ dump(categories) }}#}
 	
 			<div class='text-center'>
-				<h5>
+			
 					{% for item in categories %}
 						<a href={{ path("app_categorie_show", { id: item.id } )}} class='flex items-center bg-gray-100 text-gray-700 text-center font-medium mr-auto ml-auto mb-2 pl-1.5 pr-2 rounded-full py-1'>
 							<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M10 5H21M10 12H21M10 19H21M5 7C4.05719 7 3.58579 7 3.29289 6.70711C3 6.41421 3 5.94281 3 5C3 4.05719 3 3.58579 3.29289 3.29289C3.58579 3 4.05719 3 5 3C5.94281 3 6.41421 3 6.70711 3.29289C7 3.58579 7 4.05719 7 5C7 5.94281 7 6.41421 6.70711 6.70711C6.41421 7 5.94281 7 5 7ZM5 14C4.05719 14 3.58579 14 3.29289 13.7071C3 13.4142 3 12.9428 3 12C3 11.0572 3 10.5858 3.29289 10.2929C3.58579 10 4.05719 10 5 10C5.94281 10 6.41421 10 6.70711 10.2929C7 10.5858 7 11.0572 7 12C7 12.9428 7 13.4142 6.70711 13.7071C6.41421 14 5.94281 14 5 14ZM5 21C4.05719 21 3.58579 21 3.29289 20.7071C3 20.4142 3 19.9428 3 19C3 18.0572 3 17.5858 3.29289 17.2929C3.58579 17 4.05719 17 5 17C5.94281 17 6.41421 17 6.70711 17.2929C7 17.5858 7 18.0572 7 19C7 19.9428 7 20.4142 6.70711 20.7071C6.41421 21 5.94281 21 5 21Z" stroke="black" stroke-width="null" stroke-linecap="round" stroke-linejoin="round" class="my-path"></path>
 							</svg>{{ item.nom }}</a>
 					{% endfor %}
-				</h5>
+			
 			</div>
 
 		{% endblock %}
