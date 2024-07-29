@@ -1,0 +1,48 @@
+<div class="example-wrapper">
+     <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_accueil")}} >Accueil</a>
+          </div>
+     </div>
+     </div>
+        <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_categorie")}} >Menu</a>
+            
+          </div>
+     </div>
+     </div>
+        <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_contact")}} >Contactez-nous</a>
+            
+          </div>
+     </div>
+     </div>
+        <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path('app_conditions_generales')}}>Conditions Generales</a>
+            
+          </div>
+     </div>
+     </div>
+        <div class="flex flex-col lg:flex-row lg:items-center gap-4 ml-auto justify-center">
+			{% if (is_granted('ROLE_USER')) %}
+				<a class="bg-indigo-50 text-indigo-600 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm hover:bg-indigo-100" href={{ path('app_logout')}}>Se déconnecter</a>
+			{% else %}
+				<a class="bg-indigo-50 text-indigo-600 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm hover:bg-indigo-100" href={{ path('app_login')}}>Se connecter</a>
+			{% endif %}
+
+
+			<a class="bg-indigo-600 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm lg:ml-5 hover:bg-indigo-700" href={{ path('app_register')}}>
+				S'inscrire
+			</a>
+		</div>
+     </div>
+     </div>
+ 
+</div>

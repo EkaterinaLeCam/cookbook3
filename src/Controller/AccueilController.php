@@ -67,4 +67,9 @@ class AccueilController extends AbstractController
             'contactForm' => $form, // Transfert du formulaire au template
         ]);
     }
+    #[Route('/navbarmobil', name: 'app_navbarmobil', methods: ['GET'])]
+    public function navbar_mobil(): Response
+    {
+        return $this->render('page/navbarmobil.html.twig');
+    }
 }

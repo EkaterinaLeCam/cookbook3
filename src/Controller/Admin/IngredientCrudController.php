@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Ingredient;
+use App\Entity\Mesure;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -45,7 +46,7 @@ class IngredientCrudController extends AbstractCrudController
                 ->setUploadedFileNamePattern('[contenthash].[extension]')
                 ->setBasePath('uploads/ingredients')
                 ->setUploadDir('public/uploads/ingredients'),
-            CollectionField::new('mesures'),
+           
         ];
     }
     

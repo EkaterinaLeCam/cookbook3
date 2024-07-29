@@ -12,6 +12,7 @@
 
 		{% block javascripts %}
         <script src="https://cdn.tailwindcss.com"></script>
+
 			{% block importmap %}
 				{{ importmap('app') }}
 			{% endblock %}
@@ -19,6 +20,7 @@
     </head>
     <body>
     {# Navbar #}
+    {% include 'partials/_navbar.html.twig' %}
     <main >
         {% block body %}{% endblock %}
     </main>

@@ -74,8 +74,8 @@ class RecetteCrudController extends AbstractCrudController
             IntegerField::new('repos')->setHelp('Saisissez le temps de repos'),
 
            
-            TextareaField::new('instruction')->setHelp('Saisissez les étapes de la préparation de recette'),
-            BooleanField::new('brouillon')->setHelp('Ne pas poublier pour le moment'),
+            TextEditorField::new('instruction')->setHelp('Saisissez les étapes de la préparation de recette'),
+            BooleanField::new('brouillon')->setHelp('Ne pas publier pour le moment'),
             FormField::addRow(),
 
 
