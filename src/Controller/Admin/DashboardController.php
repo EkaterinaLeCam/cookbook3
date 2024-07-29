@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Ingredient;
+use App\Entity\Mesure;
+use App\Entity\Note;
 use App\Entity\Recette;
 use App\Repository\RecetteRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -49,7 +51,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Administrateur', 'fa fa-home');
         yield MenuItem::linkToCrud('Categories','fas fa-angle-double-down', Categorie::class);
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-list', Ingredient::class);
+        yield MenuItem::linkToCrud('Mesures', 'fa-solid fa-scale-unbalanced-flip', Mesure::class);
         yield MenuItem::linkToCrud('Recettes', 'fas fa-cutlery', Recette::class);
+        yield MenuItem::linkToCrud('Notes', 'fa-solid fa-star-half-stroke', Note::class);
         yield MenuItem::linkToCrud('Commentaires', 'fas fa-comments', Commentaire::class);
 
 

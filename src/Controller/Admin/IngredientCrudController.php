@@ -24,6 +24,7 @@ class IngredientCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
+        //- Ajouter la fonction de voir les ingredients
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
         ;
     }
