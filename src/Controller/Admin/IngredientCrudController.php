@@ -33,6 +33,8 @@ class IngredientCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            FormField::addPanel('Saisissez votre Ingredient!')
+            ->setIcon('list'),
             IdField::new('id')->onlyOnDetail(),
             TextField::new('nom'),
 
