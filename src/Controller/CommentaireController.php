@@ -26,7 +26,7 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/commentaires/{id}', name: 'app_recette_commentaire_new', methods:['GET', 'POST'])]
+    #[Route('/commentaire/{id}', name: 'app_recette_commentaire_new', methods:['GET', 'POST'])]
     public function nouveauCommentaire(
         Commentaire $commentaire,
         RecetteRepository $recetteRepository,
