@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RecetteRepository;
@@ -77,11 +78,13 @@ class Recette
     /**
      * @var Collection<int, Mesure>
      */
-    #[ORM\ManyToMany(targetEntity: Mesure::class, mappedBy: 'recettes')]
+    #[ORM\ManyToMany(targetEntity: Mesure::class, mappedBy: 'recettes', cascade: ['persist', 'remove'])]
     private Collection $mesures;
     
     public function __construct()
     {
+        $slug = new Slugify();
+
         $this->notes = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->ingredients = new ArrayCollection();

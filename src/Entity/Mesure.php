@@ -21,7 +21,7 @@ class Mesure
     /**
      * @var Collection<int, Ingredient>
      */
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'mesures')]
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'mesures', cascade: ['persist', 'remove'])]
     private Collection $ingredients;
 
     #[ORM\Column]
@@ -166,6 +166,6 @@ class Mesure
     }
     public function __toString()
     {
-        return $this->ingredients->getNom() . ' '. $this->quantite. ' '. $this->mesure;
+        return $this->quantite. ' '. $this->mesure;
     }
 }

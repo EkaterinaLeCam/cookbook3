@@ -43,6 +43,7 @@ class RecetteCrudController extends AbstractCrudController
                 ->setIcon('cube')
                 ->setHelp('Saisissez le nom de la recette'),
             TextField::new('nom'),
+            TextField::new('slug'),
 
             AssociationField::new('categorie')
             ->setHelp('Choisissez la categorie de la recette'),
@@ -59,9 +60,9 @@ class RecetteCrudController extends AbstractCrudController
                 ->setIcon('list')
                 ->setHelp('Choisissez le nom de l\'ingredient'),
           
-            AssociationField::new('mesures'),
+            // AssociationField::new('mesures'),
 
-            //CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class),
+            CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class),
 
             //  CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
 

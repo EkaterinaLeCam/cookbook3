@@ -21,7 +21,7 @@ class Ingredient
     /**
      * @var Collection<int, Recette>
      */
-    #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'ingredients')]
+    #[ORM\ManyToMany(targetEntity: Recette::class, mappedBy: 'ingredients', cascade: ['persist', 'remove'])]
     private Collection $recettes;
 
     /**
