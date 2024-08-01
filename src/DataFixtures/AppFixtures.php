@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Categorie;
 use App\Entity\Commentaire;
 use App\Entity\Ingredient;
+use App\Entity\Mesure;
 use App\Entity\Note;
 use App\Entity\Recette;
 use Faker\Factory;
@@ -19,6 +20,7 @@ class AppFixtures extends Fixture
     {
 
         $faker = Factory::create('fr_FR');
+        $slug = new Slugify();
 
         $admin = new Utilisateur();
         $admin
@@ -32,7 +34,7 @@ class AppFixtures extends Fixture
 
         // 50 utilisateurs
         $userList = [];
-        for ($i=0; $i < 50; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             $firstname = $faker->firstName;
             $user = new Utilisateur();
             $user
@@ -45,9 +47,9 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
-        // 1000 indgrédients
+        // 100 indgrédients
         $ingredientList = [];
-        for ($i=0; $i < 1000; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             $ingredient = new Ingredient();
             $ingredient
                 ->setNom($faker->word)
@@ -77,11 +79,18 @@ class AppFixtures extends Fixture
             $manager->persist($categorie);
         }
 
-        // 500 recettes
+        // 50 recettes
         $recetteList = [];
-        for ($i=0; $i < 500; $i++) { 
+        for ($i=0; $i < 50; $i++) { 
+            $ingr = $faker->randomElement($ingredientList);
+            $mesure = new Mesure();
+            $mesure
+                ->setQuantite($faker->numberBetween(0, 100))
+                ->setMesure($faker->randomElement(['gr', 'kg', 'pièce', 'l', 'ml']))
+                ->addIngredient($ingr);
+            $manager->persist($mesure);
+
             $nom = $faker->sentence(4);
-            $slug = new Slugify();
             $slugOutput = $slug->slugify($nom);
             $recette = new Recette();
             $recette
@@ -95,18 +104,19 @@ class AppFixtures extends Fixture
                 ->setBrouillon($faker->boolean(40))
                 ->setImage($faker->imageUrl(800, 400, 'food'))
                 ->setCategorie($faker->randomElement($categorieList))
-                ->addIngredient($faker->randomElement($ingredientList))
-                ->addIngredient($faker->randomElement($ingredientList))
-                ->addIngredient($faker->randomElement($ingredientList))
                 ;
+
+            // foreach ($ingrArray as $value) {
+            //     $recette->addIngredient($value);
+            // }
 
             ;
             array_push($recetteList, $recette);
             $manager->persist($recette);
         }
 
-        // 400 notes
-        for ($i=0; $i < 400; $i++) { 
+        // 50 notes
+        for ($i=0; $i < 50; $i++) { 
             $note = new Note();
             $note
                 ->setEtoile($faker->numberBetween(1, 5))
@@ -116,8 +126,8 @@ class AppFixtures extends Fixture
             $manager->persist($note);
         }
 
-        // 300 commentaires
-        for ($i=0; $i < 300; $i++) { 
+        // 50 commentaires
+        for ($i=0; $i < 50; $i++) { 
             $commentaire = new Commentaire();
             $commentaire
                 ->setContenu($faker->word(30))
