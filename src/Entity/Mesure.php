@@ -36,9 +36,16 @@ class Mesure
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
 
+    /**
+     * @var Collection<int, Recette>
+     */
+    #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'mesures')]
+    private Collection $recettes;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -132,5 +139,33 @@ class Mesure
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Recette>
+     */
+    public function getRecettes(): Collection
+    {
+        return $this->recettes;
+    }
+
+    public function addRecette(Recette $recette): static
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): static
+    {
+        $this->recettes->removeElement($recette);
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->ingredients->getNom() . ' '. $this->quantite. ' '. $this->mesure;
     }
 }

@@ -39,6 +39,9 @@ class IngredientCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnDetail(),
             TextField::new('nom'),
 
+            FormField::addRow('xl'),
+            CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class),
+
             FormField::addPanel('Avec une image c\'est mieux !')
                 ->setIcon('image')
                 ->setHelp('Saisissez l\'image de la recette'),

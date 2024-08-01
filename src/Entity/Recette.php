@@ -73,6 +73,12 @@ class Recette
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    /**
+     * @var Collection<int, Mesure>
+     */
+    #[ORM\ManyToMany(targetEntity: Mesure::class, mappedBy: 'recettes')]
+    private Collection $mesures;
     
     public function __construct()
     {
@@ -81,6 +87,7 @@ class Recette
         $this->ingredients = new ArrayCollection();
         $this->brouillon = true;
         $this->image = "default.png";
+        $this->mesures = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -331,5 +338,32 @@ class Recette
     public function __toString()
     {
         return $this->getNom();
+    }
+
+    /**
+     * @return Collection<int, Mesure>
+     */
+    public function getMesures(): Collection
+    {
+        return $this->mesures;
+    }
+
+    public function addMesure(Mesure $mesure): static
+    {
+        if (!$this->mesures->contains($mesure)) {
+            $this->mesures->add($mesure);
+            $mesure->addRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMesure(Mesure $mesure): static
+    {
+        if ($this->mesures->removeElement($mesure)) {
+            $mesure->removeRecette($this);
+        }
+
+        return $this;
     }
 }

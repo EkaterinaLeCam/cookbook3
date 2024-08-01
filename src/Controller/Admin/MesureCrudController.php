@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -37,11 +38,26 @@ class MesureCrudController extends AbstractCrudController
             ->setIcon('scale-unbalanced-flip'),
             IdField::new('id')->onlyOnDetail(),
             AssociationField::new('ingredients')
+            ->setLabel('')
             ->setHelp('Choisissez votre ingredient'),
+            FormField::addRow('xxl'),
             IntegerField::new('quantite')
-            ->setHelp('Saisissez la quantité de l\'ingredient'),
-            TextField::new('mesure')
-            ->setHelp('Saisissez gr., kg., pièce, cuillère à soupe, cc ect.'),
+            ->setLabel('')
+            ->setHelp('quantité'),
+            FormField::addRow('xxl'),
+            ChoiceField::new('mesure')
+            ->setChoices([
+                'kg' => 'kg',
+                'gr' => 'gr',
+                'l' => 'l',
+                'ml' => 'ml',
+                'cs' => 'cs',
+                'cc' => 'cc',
+                'pcs' => 'pcs',
+                
+            ])
+            ->setLabel('')
+            ->setHelp('mesure'),
             
         ];
     }

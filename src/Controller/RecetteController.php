@@ -16,18 +16,14 @@ class RecetteController extends AbstractController
     #[Route('/recettes', name: 'app_recette', methods:['GET'])]
     public function index(
         RecetteRepository $recetteRepository, 
-        PaginatorInterface $paginator,
+        
         Request $request
         ): Response
     {
-        $recettes = $paginator->paginate([
-            $recetteRepository->findBy([],['nom'=>'ASC']),
-            $request->query->getInt('page', 1),
-            16
-        ]);
+      
         
         return $this->render('recette/index.html.twig', [
-            'recettes' => $recetteRepository->findBy([],['nom'=>'ASC']),
+            'recettes' => $recetteRepository->findBy([],['nom'=>'ASC'],10),
         ]);
     }
 

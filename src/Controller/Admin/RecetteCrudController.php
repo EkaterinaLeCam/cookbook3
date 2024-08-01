@@ -58,9 +58,12 @@ class RecetteCrudController extends AbstractCrudController
             FormField::addPanel('Les ingredients de la recette!')
                 ->setIcon('list')
                 ->setHelp('Choisissez le nom de l\'ingredient'),
-            //AssociationField::new('ingredients')->setHelp('Choisissez le nom de l\'ingredient'),
-            //CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
-            CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
+          
+            AssociationField::new('mesures'),
+
+            //CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class),
+
+            //  CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
 
         
             FormField::addPanel('Les instructions')
