@@ -28,17 +28,22 @@ class ModerationService
 
     public function checkComment(string $contenu): bool
     {
-        $prompt = "Vous êtes un modérateur de commentaires. Vous devez vérifier si le commentaire suivant est correct, c'est-à-dire : sans insultes, sans violence, sans discrimination. Si le commentaire est correct, renvoyez la réponse `true`, sinon renvoyez `false`. \n\nCommentaire : " . $contenu;
+        $prompt = "Tu es un modérateur de commentaires sur un réseau social culinaire. Ton rôle consiste à vérifier si le commentaire suivant est correct, c'est-à-dire : sans insultes en français ou anglais, sans violence dans le contenu, sans discrimination des individus et tout autre forme qui peut être associé aux éléments cités avant. Si le commentaire est correct, renvoit la réponse 'true', sinon renvoit 'false'. \n\n Commentaire : " . $contenu . "\n\n Ce commentaire contient-il correct ? Réponse :
+";
         $yourApiKey = $this->param->get('OPENAI_API_KEY');
         $client = OpenAI::client($yourApiKey);
 
         $result = $client->chat()->create([
             'model' => 'gpt-3.5-turbo',
             'messages' => [
-                ['role' => 'user', 'content' => $prompt],
+                ['role' => 'system', 'content' => $prompt],
             ],
         ]);
 
-        return $result->choices[0]->message->content; 
+        if ($result->choices[0]->message->content == 'true') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
