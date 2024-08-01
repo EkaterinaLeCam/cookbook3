@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     uploads: '%kernel.project_dir%/public/uploads'
+    OPENAI_API_KEY: '%env(OPENAI_API_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -23,3 +24,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    ModerationService:
+        class: App\Service\ModerationService
+        arguments:
+            $OPENAI_API_KEY: '$OPENAI_API_KEY'

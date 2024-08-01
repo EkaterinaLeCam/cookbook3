@@ -6,6 +6,7 @@ use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
+use App\Service\ModerationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Egulias\EmailValidator\Parser\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,13 +33,14 @@ class CommentaireController extends AbstractController
         RecetteRepository $recetteRepository,
         EntityManagerInterface $em,
         Request $request,
+        ModerationService $moderationService,
         ): Response {
             $recette = $recetteRepository->findOneBy(['id' => $request->get('id')]);
             $form = $this->createForm(CommentaireType::class);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                // $ai = ModerationService::check($form->get('contenu')->getData());
+                $ai = $moderationService->checkComment($form->get('contenu')->getData());
                 $commentaire = new Commentaire();
                 $commentaire
                     ->setContenu($form->get('contenu')->getData())
@@ -46,9 +48,9 @@ class CommentaireController extends AbstractController
                     ->setAuteur($this->getUser())
                 ;
 
-                // if ($ai = true) {
-                //     $commentaire->setStatut(true);
-                // }
+                 if ($ai == true) {
+                     $commentaire->setStatut(true);
+                 }
 
                 $em->persist($commentaire);
                 $em->flush();
