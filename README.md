@@ -1,5 +1,25 @@
 # TODO
 
+
+Finalisation de la verison beta :
+
+Jensone :
+- Design d'Interface :
+  - Homepage
+  - Recettes > Recette
+  - Commentaire workflow
+  - Barre de recherche > QueryBuilder
+
+
+Ekatrina :
+-
+
+
+
+
+
+---
+
 Pour le 01/08
 
 - Finaliser toutes interfaces (admin, recette, commentaire, etc)
@@ -9,7 +29,7 @@ Pour le 01/08
 - Ajouter la fonction de voir les categories
 - Ajouter la fonction de voir les notes
 - Ajouter la fonction de voir les ingredients
-
+****
 ---
 
 Pour le 25/07
