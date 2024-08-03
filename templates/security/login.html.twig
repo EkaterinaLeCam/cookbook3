@@ -18,8 +18,8 @@
 			</div>
 		{% endif %}
 
-		<h1 class="h3 mb-3 font-weight-normal">Connectez-vous, s'il vous plait</h1>
-		<div class="relative text-gray-500 focus-within:text-gray-900 mb-8">
+		<h1 class=" max-w-lg mx-auto h3 mb-3 font-weight-normal">Connectez-vous, s'il vous plait</h1>
+		<div class="max-w-lg mx-auto relative text-gray-500 focus-within:text-gray-900 mb-8">
 			<div class="absolute inset-y-0 left-0 flex items-center px-3 rounded-l-lg border-gray-300 pointer-events-none bg-gray-200">
 				<svg class="stroke-gray-500" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M3 12C3 8.22876 3 6.34315 4.17157 5.17157C5.34315 4 7.22876 4 11 4H13C16.7712 4 18.6569 4 19.8284 5.17157C21 6.34315 21 8.22876 21 12C21 15.7712 21 17.6569 19.8284 18.8284C18.6569 20 16.7712 20 13 20H11C7.22876 20 5.34315 20 4.17157 18.8284C3 17.6569 3 15.7712 3 12Z" stroke="currentColor" stroke-width="1.6" class="my-path"></path>
@@ -29,7 +29,7 @@
 			<input type="text" id="default-search" class="block w-full h-11 pr-5 pl-14 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none" value="{{ last_username }}" name="email" required autofocus placeholder="Saisissez votre Email">
 		</div>
 
-		<div class="relative text-gray-500 focus-within:text-gray-900 mb-8">
+		<div class="max-w-lg mx-auto relative text-gray-500 focus-within:text-gray-900 mb-8">
 			<div class="absolute inset-y-0 left-0 flex items-center px-3 rounded-l-lg border-gray-300 border-l pointer-events-none bg-gray-200">
 				<svg class="stroke-gray-500" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M16.5 9C16.5 9.82843 15.8284 10.5 15 10.5C14.1716 10.5 13.5 9.82843 13.5 9C13.5 8.17157 14.1716 7.5 15 7.5C15.8284 7.5 16.5 8.17157 16.5 9Z" stroke="currentColor" stroke-width="1.6" class="my-path"></path>
@@ -39,17 +39,17 @@
 			</div>
 			<input name="password" type="password" id="default-search" class="block w-full h-11 pr-5 pl-14 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none" autocomplete="current-password" required placeholder="Saisissez votre Password">
 		</div>
-		<div class="flex items-center  mb-6">
+		<div class="max-w-lg mx-auto flex items-center  mb-6">
 			<input type="checkbox" name="_remember_me" id="checkbox-accept" class="w-5 h-5 appearance-none border border-gray-300  rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100">
-			<label for="checkbox-accept" class="text-sm font-normal text-gray-600">J'accepte les conditions
+			<label for="checkbox-accept" class="text-sm font-normal text-gray-600">Se rappeler de moi
 			</label>
 		</div>
 		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-		<div class="flex items-center">
+		<div class="max-w-lg mx-auto flex items-center">
 			<button type="submit" class="w-32 h-12 bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6 mr-4">Connexion</button>
 		</button>
 
-		<button class="w-32 h-12 bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6">
+		<button class="max-w-lg mx w-32 h-12 bg-indigo-600 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-base font-semibold leading-6">
 			<a href={{ path('app_register')}}>S'inscrire</a>
 		</button>
 

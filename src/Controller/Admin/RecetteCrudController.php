@@ -60,7 +60,7 @@ class RecetteCrudController extends AbstractCrudController
                 ->setIcon('list')
                 ->setHelp('Choisissez le nom de l\'ingredient'),
           
-            // AssociationField::new('mesures'),
+            //AssociationField::new('mesures'),
 
             CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class),
 

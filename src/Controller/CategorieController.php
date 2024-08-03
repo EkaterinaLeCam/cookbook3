@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
+use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,11 +27,12 @@ class CategorieController extends AbstractController
 
     #[Route('/categories/{id}', name: 'app_categorie_show', methods:['GET'])]
     public function show(
-        Categorie $categorie,
+        Categorie $categorie, RecetteRepository $recette,
     ): Response
     {
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
+            'recettes' => $recette->findBy([],['nom'=>'ASC'],10),
         ]);
     }
 }
