@@ -16,28 +16,13 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //    /**
-    //     * @return Recette[] Returns an array of Recette objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    //Récuperer les recettes en lien avec une rechere
+    //@ return Recett []
+    public function findSearch(): array
+    {
+        return $this->findAll();
+    }
 
-    //    public function findOneBySomeField($value): ?Recette
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+
+
 }
