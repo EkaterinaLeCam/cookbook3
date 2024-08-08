@@ -7,16 +7,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\ContactType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository): Response
+    public function index(RecetteRepository $recetteRepository, Request $request): Response
     {
         //recuperer les produits liées à une recherche dans la bar de recherche
-      
+        $searchData= new SearchData();
+        $formSearch = $this-> createForm(SearchType::class, $searchData);
+
+        //doit chercher la reponse
+        $formSearch->handleRequest($request);
+        if($formSearch->isSubmitted() && $formSearch->isValid()) {
+            dd($searchData);
+        }
+
+
         return $this->render('page/accueil.html.twig', [
             'recettes' => $recetteRepository->findBy(
                 [],
