@@ -24,17 +24,25 @@ class AccueilController extends AbstractController
         //doit chercher la reponse
         $formSearch->handleRequest($request);
         if($formSearch->isSubmitted() && $formSearch->isValid()) {
-            dd($searchData);
+           $searchData->page=$request->query->getInt('page', 1);
+           $recettes=$recetteRepository->findBySearch($searchData);
+
+           return $this-> render('recette/index.html.twig', [
+            'formSearch' => $formSearch,
+            'recettes' =>$recettes,
+           ]);
+
         }
 
 
         return $this->render('page/accueil.html.twig', [
-            'recettes' => $recetteRepository->findBy(
-                [],
-                ['id' => 'DESC'],
-                10
+            'formSearch'=>$formSearch->createView(),
+            //'recettes' => $recetteRepository->findBy(
+                //[],
+                //['id' => 'DESC'],
+                //10
 
-            ),
+            //),
             
         ]);
     }
