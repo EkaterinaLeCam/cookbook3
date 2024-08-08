@@ -16,7 +16,7 @@ class AccueilController extends AbstractController
     public function index(RecetteRepository $recetteRepository): Response
     {
         //recuperer les produits liées à une recherche dans la bar de recherche
-        $find=$recetteRepository->findSearch();
+      
         return $this->render('page/accueil.html.twig', [
             'recettes' => $recetteRepository->findBy(
                 [],
@@ -24,7 +24,7 @@ class AccueilController extends AbstractController
                 10
 
             ),
-            'find'=>$find,
+            
         ]);
     }
     #[Route('/conditions-generales', name: 'app_conditions_generales', methods: ['GET'])]

@@ -16,12 +16,6 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    //Récuperer les recettes en lien avec une rechere
-    //@ return Recett []
-    public function findSearch(): array
-    {
-        return $this->findAll();
-    }
 
 
 
