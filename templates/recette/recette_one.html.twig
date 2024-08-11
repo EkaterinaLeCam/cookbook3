@@ -6,6 +6,25 @@
 
 {% block body %}
 	{#{{ dump(recette) }}#}
+	<div class="container mx-auto">
+	<h2 class="text-5xl text-center mt-24 mb-8">{{ recette.nom }} </h2>
+	
+{% for item in recette.ingredients %}
+
+	<div class="relative max-w-xs border border-solid border-gray-200 rounded-2xl transition-all duration-500 ">
+			<div class="block overflow-hidden">
+				<img src={{item.image}} alt="carte"/>
+			</div>
+			<div class="p-4">
+				<h4 class="text-base font-semibold text-gray-900 mb-2 capitalize transition-all duration-500 ">{{item.nom}}</h4>
+				<p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 mb-5">
+					Provides faster transaction, so money arrives in realtime
+				</p>
+			</div>
+		</div>
+{% endfor %}
+		
+	</div>
 
 
 	<section class="py-24 relative">
@@ -323,7 +342,7 @@
 							</div>
 							<div class="flex items-center justify-center mt-8">
 								<button class="w-[171px] h-[52px] py-[14px] px-5 font-semibold text-base text-white text-center bg-indigo-600 rounded-[100px] shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">Write
-																																				                                    a review</button>
+																																																						                                    a review</button>
 							</div>
 						</div>
 					</div>

@@ -80,6 +80,9 @@ class Recette
      */
     #[ORM\ManyToMany(targetEntity: Mesure::class, mappedBy: 'recettes', cascade: ['persist', 'remove'])]
     private Collection $mesures;
+
+    #[ORM\Column]
+    private ?int $portion = null;
     
     public function __construct()
     {
@@ -366,6 +369,18 @@ class Recette
         if ($this->mesures->removeElement($mesure)) {
             $mesure->removeRecette($this);
         }
+
+        return $this;
+    }
+
+    public function getPortion(): ?int
+    {
+        return $this->portion;
+    }
+
+    public function setPortion(int $portion): static
+    {
+        $this->portion = $portion;
 
         return $this;
     }

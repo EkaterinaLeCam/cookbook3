@@ -27,7 +27,7 @@ class AccueilController extends AbstractController
            $searchData->page=$request->query->getInt('page', 1);
            $recettes=$recetteRepository->findBySearch($searchData);
 
-           return $this-> render('recette/index.html.twig', [
+           return $this-> render('page/accueil.html.twig', [
             'formSearch' => $formSearch,
             'recettes' =>$recettes,
            ]);
@@ -63,7 +63,7 @@ class AccueilController extends AbstractController
 
         // Si le formulaire est valide
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->getData());
+          
 
             // Traitement de l'upload
             $file = $form->get('curriculum')->getData();

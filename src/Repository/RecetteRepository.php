@@ -17,21 +17,20 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    public function findBySearch(SearchData $searchData)
-    {
-        $data= $this;
-        if(!empty($searchData->q))
-        {
-            $data=$data
-            ->setParameter('q', "%{$searchData->q}%");
-        }
-        $data=$data
-        ->getQuery()
-        ->getResult();
+   //public function findBySearch(SearchData $searchData)
+    //{
+       // $data= $this;
+        //if(!empty($searchData->q))
+      //  {
+      //      $data=$data->setParameter('q', "%{$searchData->q}%");
+       // }
+       // $data=$data
+       // ->getQuery()
+       // ->getResult();
 
-        $recettes = $this->paginatorInterface->paginate($data, $searchData->page, 9);
-        return $recettes;
-    }
+       // $recettes = $this->paginatorInterface->paginate($data, $searchData->page, 9);
+       // return $recettes;
+    //}
 
 
 }

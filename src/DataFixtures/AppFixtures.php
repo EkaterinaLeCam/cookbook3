@@ -186,6 +186,7 @@ class AppFixtures extends Fixture
             $recette
                 ->setNom($nom)
                 ->setSlug($slugOutput)
+                ->setPortion($faker->numberBetween(1, 10))
                 ->setPreparation($faker->numberBetween(5, 200))
                 ->setCuisson($faker->numberBetween(0, 200))
                 ->setRepos($faker->numberBetween(0, 200))
