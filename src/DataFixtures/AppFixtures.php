@@ -136,7 +136,7 @@ class AppFixtures extends Fixture
             $manager->persist($ingredient);
         }
 
-        // MEsures 
+        // Mesures 
         $mesureList = [];
         foreach ($ingredientList as $value) {
             for ($i = 10; $i < 5; $i++) {

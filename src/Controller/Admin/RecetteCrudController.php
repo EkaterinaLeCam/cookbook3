@@ -71,7 +71,7 @@ class RecetteCrudController extends AbstractCrudController
                 ->setIcon('utensils'),
             IntegerField::new('portion')->setHelp('Saisissez le nombre de portions'),
 
-            CountryField::new('pays')->showName(false),
+            
             
             TextField::new('pays')->setHelp('Saisissez le pays d\'origine du plat'),
             IntegerField::new('preparation')->setHelp('Saisissez le temps de preparation'),
