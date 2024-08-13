@@ -13,7 +13,7 @@
 
 		<div class="text-center max-w-lg mx-auto relative max-w border border-solid border-gray-200 rounded-2xl transition-all duration-500 ">
 			<div class="block overflow-hidden">
-				<img src={{recette.image}} alt="Card image"/>
+				<img src={{recette.image}} alt="Carte"/>
 			</div>
 			<div class="p-4">
 				<p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 mb-5">
@@ -366,8 +366,7 @@
 								<p class="font-medium text-lg leading-8 text-black ">({{ notes[1] ?? 0 }})</p>
 							</div>
 							<div class="flex items-center justify-center mt-8">
-								<button class="w-[171px] h-[52px] py-[14px] px-5 font-semibold text-base text-white text-center bg-indigo-600 rounded-[100px] shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">Write
-																																																																								                                    a review</button>
+								<a href="{{ path('app_recette_note_new', { id: recette.id }) }}" class="w-[171px] h-[52px] py-[14px] px-5 font-semibold text-base text-white text-center bg-indigo-600 rounded-[100px] shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">Notez une recette</a>
 							</div>
 						</div>
 					</div>

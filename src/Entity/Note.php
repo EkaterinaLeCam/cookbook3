@@ -25,6 +25,7 @@ class Note
     private ?Utilisateur $auteur = null;
 
     #[ORM\Column]
+  
     private ?int $etoile = null;
 
     #[ORM\Column]
