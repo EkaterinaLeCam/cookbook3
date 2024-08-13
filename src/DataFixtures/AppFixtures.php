@@ -199,8 +199,6 @@ class AppFixtures extends Fixture
                 foreach ($mesureList as $value) {
                     $recette->addMesure($value);
                 }
-
-            ;
             array_push($recetteList, $recette);
             $manager->persist($recette);
         }
