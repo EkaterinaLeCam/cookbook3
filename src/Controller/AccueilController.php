@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Recette;
 use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,29 +12,36 @@ use App\Form\SearchType;
 use App\Model\SearchData;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
+
 
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository, Request $request): Response
+    public function index(RecetteRepository $recetteRepository, Request $request, PersistenceManagerRegistry $doctrine): Response
     {
         //recuperer les produits liées à une recherche dans la bar de recherche
-        $searchData= new SearchData();
-        $formSearch = $this-> createForm(SearchType::class, $searchData);
-
+      
+        $formSearch = $this-> createForm(SearchType::class);
         //doit chercher la reponse
         $formSearch->handleRequest($request);
-        if($formSearch->isSubmitted() && $formSearch->isValid()) {
-           $searchData->page=$request->query->getInt('page', 1);
-           $recettes=$recetteRepository->findBySearch($searchData);
 
+        if($formSearch->isSubmitted() && $formSearch->isValid()) {
+           $data = $formSearch->getData();
+
+           $categorie = $data->getCategories();
+
+           $recettes=$doctrine->getRepository(Recette::class)-> findRecetteByElement($categorie);
+        } else {
+            $recettes=$doctrine->getRepository(Recette::class)-> findAll();
+        }
            return $this-> render('page/accueil.html.twig', [
             'formSearch' => $formSearch,
             'recettes' =>$recettes,
            ]);
 
         }
-
+    }
 
         return $this->render('page/accueil.html.twig', [
             'formSearch'=>$formSearch->createView(),
