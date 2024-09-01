@@ -16,12 +16,12 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('q', TextType::class, [
+        ->add('nom', TextType::class, [
             'attr'=>[
                 'placeholder' => 'Cherchez une recette'
             ]
             ])
-        ->add('categories', EntityType::class, [
+        ->add('categorie', EntityType::class, [
             'class' => Categorie::class,
             'choice_label' => 'nom',
             'multiple' => true,
