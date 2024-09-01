@@ -17,14 +17,10 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-    public function findRecetteByElement($categorie )
+    public function findRecetteByElement($recettes )
     {
         $c = $this->createQueryBuilder('recettes');
-        //On s'assure que la categorie de recette n'est pas null
-        if ($categorie !== null){
-            $c->where('recettes.categorie >= :categorie')
-               ->setParameter('categorie', $categorie);
-        }
+     
         
 
 

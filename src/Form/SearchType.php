@@ -19,15 +19,8 @@ class SearchType extends AbstractType
         ->add('nom', TextType::class, [
             'attr'=>[
                 'placeholder' => 'Cherchez une recette'
-            ]
-            ])
-        ->add('categorie', EntityType::class, [
-            'class' => Categorie::class,
-            'choice_label' => 'nom',
-            'multiple' => true,
-            'expanded' => true,
-            'required' => false,
-        ]);
+            ]]);
+    
     }
 
     public function configureOptions(OptionsResolver $resolver)

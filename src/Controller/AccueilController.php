@@ -29,9 +29,9 @@ class AccueilController extends AbstractController
         if($formSearch->isSubmitted() && $formSearch->isValid()) {
            $data = $formSearch->getData();
 
-           $categorie = $data->getCategories();
+           $categorie = $data->getCategorie();
 
-           $recettes=$doctrine->getRepository(Recette::class)-> findRecetteByElement($categorie);
+           $recettes=$doctrine->getRepository(Recette::class)-> findRecetteByElement($recettes);
         } else {
             $recettes=$doctrine->getRepository(Recette::class)-> findAll();
         }
