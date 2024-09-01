@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Categorie;
+
 use App\Entity\Recette;
 use App\Model\SearchData;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,9 +16,9 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('nom', TextType::class, [
+        ->add('q', TextType::class, [
             'attr'=>[
-                'placeholder' => 'Cherchez une recette'
+                'placeholder' => 'Mettez le mot clé...'
             ]]);
     
     }
@@ -26,7 +26,7 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'=> Recette::class,
+            'data_class' => SearchData::class,
             'method'=> 'GET',
             //CSRF : principes, impacts et bonnes pratiques sécurité
             'csrf_protection'=>false

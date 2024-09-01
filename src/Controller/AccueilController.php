@@ -20,31 +20,25 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
     public function index(RecetteRepository $recettes, Request $request, PersistenceManagerRegistry $doctrine): Response
     {
+        $searchData = new SearchData();
         //recuperer les produits liées à une recherche dans la bar de recherche
-      
-        $formSearch = $this-> createForm(SearchType::class);
+
+        $formSearch = $this->createForm(SearchType::class, $searchData);
         //doit chercher la reponse
         $formSearch->handleRequest($request);
-
-        if($formSearch->isSubmitted() && $formSearch->isValid()) {
-           $data = $formSearch->getData();
-
-           $categorie = $data->getCategorie();
-
-           $recettes=$doctrine->getRepository(Recette::class)-> findRecetteByElement($recettes);
-        } else {
-            $recettes=$doctrine->getRepository(Recette::class)-> findAll();
+        //la quondition: si le formulaire est validée et correct
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            dd($searchData);
         }
-           return $this-> render('page/accueil.html.twig', [
-            'formSearch' => $formSearch,
-            'recettes' =>$recettes,
-           ]);
+        return $this->render('page/accueil.html.twig', [
+            'formSearch' => $formSearch->createView(),
+            'recettes' => $recettes,
+        ]);
+    }
 
-        }
-    
-    
-       
-    
+
+
+
     #[Route('/conditions-generales', name: 'app_conditions_generales', methods: ['GET'])]
     public function conditions_generale(): Response
     {
@@ -62,7 +56,7 @@ class AccueilController extends AbstractController
 
         // Si le formulaire est valide
         if ($form->isSubmitted() && $form->isValid()) {
-          
+
 
             // Traitement de l'upload
             $file = $form->get('curriculum')->getData();
