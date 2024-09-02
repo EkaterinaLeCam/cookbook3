@@ -13,13 +13,18 @@ use App\Model\SearchData;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
-
+use Knp\Component\Pager\PaginatorInterface;
 
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository, Request $request, PersistenceManagerRegistry $doctrine): Response
+    public function index(RecetteRepository $recetteRepository, Request $request, 
+    PaginatorInterface $paginatorInterface): Response
     {
+        $data=$recetteRepository->findPublished();
+        $recettes = $paginatorInterface->paginate(
+            $data, $request->query->getInt('page',1), 9);
+
         $searchData = new SearchData();
         //recuperer les produits liées à une recherche dans la bar de recherche
 

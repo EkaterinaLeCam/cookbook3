@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
         "easycorp/easyadmin-bundle": "^4.10",
+        "knplabs/knp-paginator-bundle": "^6.4",
         "nyholm/psr7": "^1.8",
         "openai-php/client": "^0.10.1",
         "phpdocumentor/reflection-docblock": "^5.4",
