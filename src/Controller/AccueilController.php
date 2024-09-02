@@ -18,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recettes, Request $request, PersistenceManagerRegistry $doctrine): Response
+    public function index(RecetteRepository $recetteRepository, Request $request, PersistenceManagerRegistry $doctrine): Response
     {
         $searchData = new SearchData();
         //recuperer les produits liées à une recherche dans la bar de recherche
@@ -28,11 +28,19 @@ class AccueilController extends AbstractController
         $formSearch->handleRequest($request);
         //la quondition: si le formulaire est validée et correct
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            dd($searchData);
+            $searchData->page=$request->query->getInt('page', 1);
+            $recettes=$recetteRepository->findBySearch($searchData);
+            
+
+            return $this->render('page/accueil.html.twig',[
+                'formSearch' => $formSearch->createView(),
+                'recettes' => $recettes,
+            ]);
+
         }
         return $this->render('page/accueil.html.twig', [
             'formSearch' => $formSearch->createView(),
-            'recettes' => $recettes,
+            'recettes' => $recetteRepository,
         ]);
     }
 

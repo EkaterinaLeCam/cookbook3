@@ -16,16 +16,35 @@ class RecetteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recette::class);
     }
+    /**
+     * Get published recettes thanks to Search Data value
+     * 
+     * @param SearchData $searchData
+     * @return PaginationInterface
+     */
 
-    public function findRecetteByElement($recettes )
-    {
-        $c = $this->createQueryBuilder('recettes');
-     
-        
+    public function findBySearch(SearchData $searchData):PaginationInterface{
+        $data=$this->createQueryBuilder('r')
+        ->where('r.brouillon LIKE :brouillon')
+        ->setParameter('brouillon', '%STATE_PUBLISHED%')
+        ->addOrderBy('r.createdAt', 'DESC');
 
+        if(!empty($searchData->q))
+        {
+            $data=$data
+            ->andWhere('r.nom LIKE:q')
+            ->setParameter('q',"%{$searchData->q}%");
+        }
+        $data=$data
+        ->getQuery()
+        ->getResult();
 
-        return $c->getQuery()->getResult();
+        $recettes=$this->$paginatorInterface->paginate($data, $searchData->page, 9);
+
+        return $recettes;
+
     }
+   
 
 
 
