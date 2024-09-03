@@ -17,19 +17,20 @@ class SearchType extends AbstractType
     {
         $builder
         ->add('q', TextType::class, [
-            'attr'=>[
-                'placeholder' => 'Mettez le mot clé...'
-            ]]);
-    
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => SearchData::class,
-            'method'=> 'GET',
-            //CSRF : principes, impacts et bonnes pratiques sécurité
-            'csrf_protection'=>false
+            'attr' => [
+                'placeholder' => 'Mettez le mot clé...',
+                'class' => 'form-control' // Optionnel : Ajout d'une classe CSS
+            ],
+            'required' => false, // Optionnel : si le champ n'est pas obligatoire
         ]);
-    }
+}
+
+public function configureOptions(OptionsResolver $resolver)
+{
+    $resolver->setDefaults([
+        'data_class' => SearchData::class, // Lier à un DTO si nécessaire
+        'method' => 'GET',
+        'csrf_protection' => false,
+    ]);
+}
 }

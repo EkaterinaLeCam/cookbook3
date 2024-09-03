@@ -13,43 +13,52 @@ use App\Model\SearchData;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
-use Knp\Component\Pager\PaginatorInterface;
+
 
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository, Request $request, 
-   ): Response
+    public function index(RecetteRepository $recetteRepository, Request $request): Response
     {
         
+           // Créer une instance de SearchData pour capturer les données du formulaire
+           $searchData = new SearchData();
 
-        $searchData = new SearchData();
-        //recuperer les produits liées à une recherche dans la bar de recherche
-
-        $formSearch = $this->createForm(SearchType::class, $searchData);
-        //doit chercher la reponse
-        $formSearch->handleRequest($request);
-        //la quondition: si le formulaire est validée et correct
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $searchData->page=$request->query->getInt('page', 1);
-            $recettes=$recetteRepository->findBySearch($searchData, );
-            
-
-            return $this->render('page/accueil.html.twig',[
-                'formSearch' => $formSearch->createView(),
-                'recettes' => $recettes,
-            ]);
-
-        }
-        return $this->render('page/accueil.html.twig', [
-            'formSearch' => $formSearch->createView(),
-            'recettes' => $recetteRepository,
-        ]);
-    }
-
-
-
-
+           // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
+           $formSearch = $this->createForm(SearchType::class, $searchData);
+   
+           // Gérer la requête pour extraire les données du formulaire
+           $formSearch->handleRequest($request);
+   
+           // Initialiser les résultats des recettes
+           $recettes = [];
+   
+           // Vérifiez si le formulaire est soumis et valide
+           if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+               // Récupérer la valeur de recherche
+               $query = $searchData->q;
+   
+               // Assurez-vous que $query est une chaîne de caractères
+               if (is_array($query)) {
+                   // Convertir le tableau en chaîne avec des virgules comme séparateurs
+                   $query = implode(', ', $query);
+               }
+   
+               // Utiliser la méthode findByQuery du repository pour rechercher les recettes
+               $recettes = $recetteRepository->findByQuery($query);
+           } else {
+               // Si aucune recherche n'est faite, récupérer toutes les recettes
+               $recettes = $recetteRepository->findAll();
+           }
+   
+           // Rendre la vue avec les recettes et le formulaire de recherche
+           return $this->render('page/accueil.html.twig', [
+               'recettes' => $recettes,
+               'formSearch' => $formSearch->createView(),
+           ]);
+       }
+       
+  
     #[Route('/conditions-generales', name: 'app_conditions_generales', methods: ['GET'])]
     public function conditions_generale(): Response
     {

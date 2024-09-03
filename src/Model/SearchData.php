@@ -1,16 +1,14 @@
 <?php
 
- namespace App\Model;
+namespace App\Model;
 
- class SearchData {
+use Symfony\Component\Validator\Constraints as Assert;
 
-    /** @var int*/
-    public $page =1;
-
-    
-    /** @var string*/
-    public string $q = '';
-
-
- }
-
+class SearchData
+{
+    /**
+     * @Assert\Type("string")
+     * @Assert\Length(max=255)
+     */
+    public ?string $q = null;
+}

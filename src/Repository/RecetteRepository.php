@@ -6,7 +6,7 @@ use App\Entity\Recette;
 use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use phpDocumentor\Reflection\Types\Void_;
 
 /**
  * @extends ServiceEntityRepository<Recette>
@@ -18,39 +18,13 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
   
-    /**
-     * Get published recettes thanks to Search Data value
-     * 
-     * @param SearchData $searchData
-     * @return PaginationInterface
-     */
 
-    public function findBySearch(SearchData $searchData):array 
+    public function findByQuery(string $query): array
     {
-
-        $data=$this->createQueryBuilder('r')
-        ->where('r.brouillon LIKE :brouillon')
-        ->setParameter('brouillon', '%STATE_PUBLISHED%')
-        ->addOrderBy('r.created_at', 'DESC');
-
-        if(!empty($searchData->q))
-        {
-            $data=$data
-            ->andWhere('r.nom LIKE:q')
-            ->setParameter('q',"%{$searchData->q}%");
-        }
-        $data=$data
-        ->getQuery()
-        ->getResult();
-
-        $recettes=$this->$paginatorInterface->paginate($data, $searchData->page, 10);
-
-        return $recettes;
-
+        return $this->createQueryBuilder('r')
+            ->where('r.nom LIKE :query OR r.preparation LIKE :query')
+            ->setParameter('query', "%$query%")
+            ->getQuery()
+            ->getResult();
     }
-   
-
-
-
-
 }
