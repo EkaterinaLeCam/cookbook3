@@ -21,6 +21,11 @@
 		{% endblock %}
 	</head>
 	<body>
+	{% if app.user %}
+    <h2 class="text-center text-white">Bonjour {{app.utilisateur.nom}} {{app.utilisateur.prenom}}</h2>
+    {% else %}
+    <h2></h2>
+    {% endif %}
 		{# Navbar #}
 		{% include 'partials/_navbar.html.twig' %}
 		{# search bar #}

@@ -19,11 +19,9 @@ class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository, Request $request, 
-    PaginatorInterface $paginatorInterface): Response
+   ): Response
     {
-        $data=$recetteRepository->findPublished();
-        $recettes = $paginatorInterface->paginate(
-            $data, $request->query->getInt('page',1), 9);
+        
 
         $searchData = new SearchData();
         //recuperer les produits liées à une recherche dans la bar de recherche
@@ -34,7 +32,7 @@ class AccueilController extends AbstractController
         //la quondition: si le formulaire est validée et correct
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $searchData->page=$request->query->getInt('page', 1);
-            $recettes=$recetteRepository->findBySearch($searchData);
+            $recettes=$recetteRepository->findBySearch($searchData, );
             
 
             return $this->render('page/accueil.html.twig',[
