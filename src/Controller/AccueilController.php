@@ -49,7 +49,7 @@ class AccueilController extends AbstractController
         // Rendre la vue avec les recettes et le formulaire de recherche
         return $this->render('page/accueil.html.twig', [
             'recettes' => $recettes,
-           dd
+            'form' => $form->createView(),
         ]);
     }
 
