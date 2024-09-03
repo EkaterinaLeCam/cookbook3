@@ -21,16 +21,21 @@
 		{% endblock %}
 	</head>
 	<body>
-	
+
 		{# Navbar #}
 		{% include 'partials/_navbar.html.twig' %}
-		{# search bar #}
-		{% include 'partials/_search_data.html.twig' %}
+
+		{# Formulaire de recherche #}
+        {% include 'partials/_search_data.html.twig'%}
+       
+
 		<main>
-			{% block body %}{% endblock %}
+			{% block body %}
+		
+			{% endblock %}
 		</main>
 		{# Footer 
-		    <a href={{ path('app_conditions_generales') }}  >Conditions générales</a>
-		    <a href={{ path('app_contact') }}  >Contactez-nous</a>#}
+				    <a href={{ path('app_conditions_generales') }}  >Conditions générales</a>
+				    <a href={{ path('app_contact') }}  >Contactez-nous</a>#}
 	</body>
 </html>

@@ -23,7 +23,7 @@ class RecetteController extends AbstractController
       
         
         return $this->render('recette/index.html.twig', [
-            'recettes' => $recetteRepository->findBy([],['nom'=>'ASC'],10),
+            'recettes' => $recetteRepository
         ]);
     }
 
