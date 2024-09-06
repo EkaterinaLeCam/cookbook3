@@ -6,7 +6,7 @@
 {% block body %}
 
 		<div class="max-w-md mx-auto">
-			<h1 class="text-2xl font-semibold text-center">Donnez votre avis sur la recette</h1>
+			<h1 class="text-2xl font-semibold text-center">Donnez votre avis sur la recette: {{ recette.nom }}</h1>
             {{ form_errors(form) }}
 
             {{ form_start(form) }}
