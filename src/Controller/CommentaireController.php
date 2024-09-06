@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
 use App\Service\ModerationService;
@@ -35,40 +37,55 @@ class CommentaireController extends AbstractController
         Request $request,
         ModerationService $moderationService,
     ): Response {
-        $recette = $recetteRepository->findOneBy(['id' => $request->get('id')]);
+        // Barre de recherche
+        $searchData = new SearchData();
+        $formSearch = $this->createForm(SearchType::class, $searchData);
+        $formSearch->handleRequest($request);
+
+        // Gestion de la recherche
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $recettes = $recetteRepository->findByQuery($searchData->getQ());
+            return $this->render('page/accueil.html.twig', [
+                'recettes' => $recettes,
+                'formSearch' => $formSearch->createView(),
+            ]);
+        }
+
+        // Récupération de la recette par ID
+        $recette = $recetteRepository->find($request->get('id'));
+        if (!$recette) {
+            throw $this->createNotFoundException('Recette non trouvée');
+        }
+
+        // Formulaire de commentaire
         $form = $this->createForm(CommentaireType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $ai = $moderationService->checkComment($form->get('contenu')->getData());
+            $contenu = $form->get('contenu')->getData();
+            $isApproved = $moderationService->checkComment($contenu);
+
             $commentaire = new Commentaire();
             $commentaire
-                ->setContenu($form->get('contenu')->getData())
+                ->setContenu($contenu)
                 ->setRecette($recette)
-                ->setAuteur($this->getUser());
-
-            if ($ai) {
-                $commentaire->setStatut(true);
-            }
+                ->setAuteur($this->getUser())
+                ->setStatut($isApproved);
 
             $em->persist($commentaire);
             $em->flush();
 
-            return $this->redirectToRoute('app_recette_one', ['slug' => $recette->getSlug()]);
+            return $this->redirectToRoute('app_recette_one', [
+                'slug' => $recette->getSlug(),
+            ]);
         }
 
         return $this->render('commentaire/new.html.twig', [
-            'form' => $form,
-            'recette' => $recette
+            'form' => $form->createView(),
+            'recette' => $recette,
+            'formSearch' => $formSearch->createView(),
         ]);
     }
 
 
-    // #[Route('/commentaires{id}', name: 'app_commentaire_one', methods:['GET', 'POST'])]
-    // public function commentaire_one(Commentaire $commentaire): Response
-    // {
-    //     return $this->render('commentaire/commentaire_one.html.twig', [
-    //         'commentaire' => $commentaire,
-    //     ]);
-    // }
 }
