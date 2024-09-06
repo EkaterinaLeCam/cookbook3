@@ -9,7 +9,15 @@
 	<div class="container mx-auto">
 		<h2 class="text-5xl text-center mt-24 mb-8">{{ recette.nom }}
 		</h2>
-
+		{# Affichage des messages flash que vous aviez noté la recette#}
+		{% for type, messages in app.flashes %}
+			<div class="alert alert-{{ type }}">
+				{% for message in messages %}
+					<p class="p-4 bg-green-50 text-5ml text-center mt-8 mb-8">
+							{{ message }}</p>
+				{% endfor %}
+			</div>
+		{% endfor %}
 
 		<div class="text-center max-w-lg mx-auto relative max-w border border-solid border-gray-200 rounded-2xl transition-all duration-500 ">
 			<div class="block overflow-hidden">
@@ -22,7 +30,7 @@
 				</p>
 				{% for ingredient in recette.ingredients %}
 					<p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 mb-5">
-					{{ ingredient.nom }}
+						{{ ingredient.nom }}
 					</p>
 				{% endfor %}
 

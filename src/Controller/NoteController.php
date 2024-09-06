@@ -64,6 +64,9 @@ class NoteController extends AbstractController
 
             $em->persist($note);
             $em->flush();
+            // Ajouter un flash message de succès
+            $this->addFlash('success', 'Votre note a été ajoutée avec succès !');
+
 
             return $this->redirectToRoute('app_recette_one', ['slug' => $recette->getSlug()]);
         }
