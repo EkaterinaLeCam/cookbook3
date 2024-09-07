@@ -20,28 +20,27 @@ class NoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('etoile', IntegerType::class, [
-                'label' => 'votre note',
-                'required' => true,
-                'attr' => [
-                    'min' => 1,
-                    'max' => 5,
-                    'placeholder' => 'Choisissez une note (1-5)',
-                ],
-
-            ])
-            ->add('recette', HiddenType::class, [
-                'mapped' => false,
-            ])
-            ->add('auteur', HiddenType::class, [
-                'mapped' => false,
-            ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Note::class,
+        ->add('etoile', IntegerType::class, [
+            'label' => 'Votre note',
+            'required' => true,
+            'attr' => [
+                'min' => 1,
+                'max' => 5,
+                'placeholder' => 'Choisissez une note (1-5)',
+            ],
+        ])
+        ->add('recette', HiddenType::class, [
+            'mapped' => false, // Ce champ est utilisé pour passer l'ID de la recette
+        ])
+        ->add('auteur', HiddenType::class, [
+            'mapped' => false, // Ce champ est utilisé pour passer l'ID de l'utilisateur
         ]);
-    }
+}
+
+public function configureOptions(OptionsResolver $resolver): void
+{
+    $resolver->setDefaults([
+        'data_class' => Note::class,
+    ]);
+}
 }

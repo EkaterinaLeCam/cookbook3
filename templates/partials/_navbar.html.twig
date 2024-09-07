@@ -8,11 +8,11 @@
                     </svg>
                     CookBook
                 </a>
-                <a href="{{ path('app_navbarmobil') }}" class="mobile-button inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
+                <button id="menuMobile" class="mobile-button inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                     </svg>
-                </a>
+                </button>
             </div>
             <div class="hidden w-full lg:flex lg:pl-11" id="default-megamenu">
                 <ul class="flex items-start mb-4 lg:mb-0 gap-y-4 lg:items-center flex-col mt-4 lg:mt-0 lg:flex-row">
@@ -36,8 +36,10 @@
                     <li class="relative">
                         <a class="flex items-center justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-indigo-700 transition-all duration-500 mb-2 lg:mr-6 lg:mb-0" href="{{ path('app_conditions_generales') }}">Conditions Générales</a>
                     </li>
+                  
                 </ul>
-                
+               
+
                 <div class="flex flex-col lg:flex-row lg:items-center gap-4 ml-auto justify-center">
                     {% if is_granted('ROLE_USER') %}
                         <a class="bg-indigo-50 text-indigo-600 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm hover:bg-indigo-100" href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -50,3 +52,51 @@
         </div>
     </div>
 </nav>
+<section id="menu" ><div class="example-wrapper">
+     <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_accueil")}} >Accueil</a>
+          </div>
+     </div>
+     </div>
+        <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_categorie")}} >Menu</a>
+            
+          </div>
+     </div>
+     </div>
+        <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path("app_contact")}} >Contactez-nous</a>
+            
+          </div>
+     </div>
+     </div>
+        <div class="example-wrapper">
+   <div class="card border-0 shadow-sm">
+          <div class="text-center">
+            <a class="menu" href={{ path('app_conditions_generales')}}>Conditions Generales</a>
+            
+          </div>
+     </div>
+     </div>
+        <div class="flex flex-col lg:flex-row lg:items-center gap-4 ml-auto justify-center">
+			{% if (is_granted('ROLE_USER')) %}
+				<a class="bg-indigo-50 text-indigo-600 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm hover:bg-indigo-100" href={{ path('app_logout')}}>Se déconnecter</a>
+			{% else %}
+				<a class="bg-indigo-50 text-indigo-600 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm hover:bg-indigo-100" href={{ path('app_login')}}>Se connecter</a>
+			{% endif %}
+
+
+			<a class="bg-indigo-600 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 py-3 px-6 text-sm lg:ml-5 hover:bg-indigo-700" href={{ path('app_register')}}>
+				S'inscrire
+			</a>
+		</div>
+     </div>
+     </div>
+ 
+</div></section>
