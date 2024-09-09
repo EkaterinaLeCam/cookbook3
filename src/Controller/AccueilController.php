@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Repository\RecetteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,38 +20,45 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository, Request $request): Response
-    {
-        // Créer une instance de SearchData pour capturer les données du formulaire
-        $searchData = new SearchData();
+    public function index(RecetteRepository $recetteRepository,
+    Request $request,
+    PaginatorInterface $paginator
+): Response {
+    // Créer une instance de SearchData pour capturer les données du formulaire
+    $searchData = new SearchData();
 
-        // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
-        $formSearch = $this->createForm(SearchType::class, $searchData);
+    // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
+    $formSearch = $this->createForm(SearchType::class, $searchData);
 
-        // Gérer la requête pour extraire les données du formulaire
-        $formSearch->handleRequest($request);
+    // Gérer la requête pour extraire les données du formulaire
+    $formSearch->handleRequest($request);
 
-        // Initialiser les résultats des recettes
-        $recettes = [];
+    // Créer une instance de QueryBuilder pour la pagination
+    $queryBuilder = $recetteRepository->createQueryBuilder('r');
 
-        // Vérifiez si le formulaire est soumis et valide
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            // Récupérer la valeur de recherche
-            $query = $searchData->getQ();
+    // Vérifiez si le formulaire est soumis et valide
+    if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+        // Récupérer la valeur de recherche
+        $query = $searchData->getQ();
 
-            // Utiliser la méthode findByQuery du repository pour rechercher les recettes
-            $recettes = $recetteRepository->findByQuery($query);
-        } else {
-            // Si aucune recherche n'est faite, récupérer toutes les recettes
-            $recettes = $recetteRepository->findAll();
-        }
-
-        // Rendre la vue avec les recettes et le formulaire de recherche
-        return $this->render('page/accueil.html.twig', [
-            'recettes' => $recettes,
-            'formSearch' => $formSearch->createView(),
-        ]);
+        // Ajouter des conditions de recherche à la requête
+        $queryBuilder
+            ->where('r.title LIKE :query')
+            ->setParameter('query', '%' . $query . '%');
     }
+
+    // Pagination
+    $pagination = $paginator->paginate(
+        $queryBuilder, /* query NOT result */
+        $request->query->getInt('page', 1), /* page number */
+        10 /* limit per page */
+    );
+
+    return $this->render('page/accueil.html.twig', [
+        'recettes' => $pagination,
+        'formSearch' => $formSearch->createView(),
+    ]);
+}
 
 
 

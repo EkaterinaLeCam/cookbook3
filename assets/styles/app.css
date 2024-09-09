@@ -2,3 +2,79 @@
 #menu {
     display: none;
   }
+
+/* Styles généraux pour la pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4F46E5; /* Couleur du texte des boutons non actifs */
+  border: 1px solid #E5E7EB; /* Bordure des boutons non actifs */
+  background-color: #F9FAFB; /* Couleur de fond des boutons non actifs */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover,
+.pagination a:focus {
+  color: #fff;
+  background-color: #4F46E5; /* Couleur de fond au survol */
+  border-color: #4F46E5; /* Bordure au survol */
+}
+
+/* Style pour le bouton actif */
+.pagination .current {
+  color: #fff;
+  background-color: #4F46E5; /* Couleur de fond du bouton actif */
+  border-color: #4F46E5; /* Bordure du bouton actif */
+  cursor: default;
+}
+
+/* Styles pour les flèches de navigation */
+.pagination .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  color: #4F46E5;
+  cursor: pointer;
+}
+
+.pagination .arrow:hover,
+.pagination .arrow:focus {
+  color: #fff;
+  background-color: #4F46E5; /* Couleur de fond au survol */
+  border-color: #4F46E5; /* Bordure au survol */
+}
+
+.pagination .arrow-left::before {
+  content: '←'; /* Icône pour la flèche gauche */
+}
+
+.pagination .arrow-right::before {
+  content: '→'; /* Icône pour la flèche droite */
+}
+
+/* Styles pour les points de suspension */
+.pagination .dots {
+  color: #4F46E5;
+  font-size: 1rem;
+  font-weight: 500;
+}

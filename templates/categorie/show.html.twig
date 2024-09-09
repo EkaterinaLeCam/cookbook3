@@ -43,5 +43,8 @@
             {% endfor %}
         </div>
     </section>
-
+	{# Affichage de la pagination #}
+		<div class="pagination">
+			{{ knp_pagination_render(recettes) }}
+		</div>
 {% endblock %}

@@ -7,6 +7,7 @@ use App\Form\SearchType;
 use App\Model\SearchData;
 use App\Repository\CategorieRepository;
 use App\Repository\RecetteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,8 @@ class CategorieController extends AbstractController
     public function index(
         CategorieRepository $categorieRepository,
         RecetteRepository $recetteRepository,
-        Request $request
+        Request $request,
+        PaginatorInterface $paginator
     ): Response {
         // Créer une instance de SearchData pour capturer les données du formulaire
         $searchData = new SearchData();
@@ -29,32 +31,34 @@ class CategorieController extends AbstractController
         // Gérer la requête pour extraire les données du formulaire
         $formSearch->handleRequest($request);
 
-        // Initialiser les résultats des recettes
-        $recettes = [];
+        // Créer une instance de QueryBuilder pour la pagination
+        $queryBuilder = $recetteRepository->createQueryBuilder('r');
 
         // Vérifiez si le formulaire est soumis et valide
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             // Récupérer la valeur de recherche
             $query = $searchData->getQ();
 
-            // Utiliser la méthode findByQuery du repository pour rechercher les recettes
-            $recettes = $recetteRepository->findByQuery($query);
-
-            // Rendre la vue avec les recettes et le formulaire de recherche
-            return $this->render('page/accueil.html.twig', [
-                'recettes' => $recettes,
-                'formSearch' => $formSearch->createView(),
-            ]);
-        } else {
-            // Si aucune recherche n'est faite, récupérer toutes les recettes
-            $recettes = $recetteRepository->findAll();
+            // Ajouter des conditions de recherche à la requête
+            $queryBuilder
+                ->where('r.title LIKE :query')
+                ->setParameter('query', '%' . $query . '%');
         }
+
+        // Pagination
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
+
+        // Rendre la vue avec les catégories, les recettes paginées et le formulaire de recherche
         return $this->render('categorie/index.html.twig', [
             'categories' => $categorieRepository->findBy(
                 [],
                 ['nom' => 'ASC']
             ),
-            'recettes' => $recettes,
+            'recettes' => $pagination,
             'formSearch' => $formSearch->createView(),
         ]);
     }
@@ -63,7 +67,8 @@ class CategorieController extends AbstractController
     public function show(
         Categorie $categorie,
         RecetteRepository $recetteRepository,
-        Request $request
+        Request $request,
+        PaginatorInterface $paginator
     ): Response {
         // Créer une instance de SearchData pour capturer les données du formulaire
         $searchData = new SearchData();
@@ -74,15 +79,33 @@ class CategorieController extends AbstractController
         // Gérer la requête pour extraire les données du formulaire
         $formSearch->handleRequest($request);
 
-        // Initialiser les recettes à null et les charger conditionnellement
-        $recettes = $formSearch->isSubmitted() && $formSearch->isValid()
-            ? $recetteRepository->findByQuery($searchData->getQ())
-            : $recetteRepository->findAll();
+        // Créer une instance de QueryBuilder pour la pagination
+        $queryBuilder = $recetteRepository->createQueryBuilder('r')
+            ->where('r.categorie = :categorie')
+            ->setParameter('categorie', $categorie);
+
+        // Vérifiez si le formulaire est soumis et valide
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            // Récupérer la valeur de recherche
+            $query = $searchData->getQ();
+
+            // Ajouter des conditions de recherche à la requête
+            $queryBuilder
+                ->andWhere('r.title LIKE :query')
+                ->setParameter('query', '%' . $query . '%');
+        }
+
+        // Pagination
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
 
         // Rendre la vue avec les recettes et le formulaire de recherche
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
-            'recettes' => $recettes,
+            'recettes' => $pagination,
             'formSearch' => $formSearch->createView(),
         ]);
     }

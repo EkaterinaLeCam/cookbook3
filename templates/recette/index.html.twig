@@ -15,15 +15,17 @@
 					</div>
 					<div class="flex flex-col justify-between p-4 lg:p-6 transition-all duration-300 rounded-b-2xl group-hover:bg-gray-50">
 						<span class="text-indigo-600 font-medium mb-3 block">
-                        {% set total = 0 %}
-                        {% for note in item.notes %}
-                            {% set total = total + note.etoile %}
-                        {% endfor %}
-                        {% if total == 0 %}
-                            Pas encore notée
-                        {% else %}
-                            {{ total / item.notes|length }}/5 sur {{ item.notes|length }} notes
-                        {% endif %}
+							{% set total = 0 %}
+							{% for note in item.notes %}
+								{% set total = total + note.etoile %}
+							{% endfor %}
+							{% if total == 0 %}
+								Pas encore notée
+							{% else %}
+								{{ total / item.notes|length }}/5 sur
+								{{ item.notes|length }}
+								notes
+							{% endif %}
 						</span>
 						<h4 class="text-xl text-gray-900 font-medium leading-8 mb-5 min-h-20">
 							{{ item.nom }}
@@ -37,13 +39,12 @@
 					</div>
 				</div>
 			{% endfor %}
+
+
+		</section>
+		{# Affichage de la pagination #}
+		<div class="pagination">
+			{{ knp_pagination_render(recettes) }}
 		</div>
-		<div class="navigation flex justify-center mb-8">
-		{{knp_pagination_render(recettes)}}
-		<div/>
 
-	</section>
-
-
-{#{{ dump(recettes) }}#}	
-{% endblock %}
+	{% endblock %}

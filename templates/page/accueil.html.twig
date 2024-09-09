@@ -45,5 +45,12 @@
 	{% else %}
 		<p>Aucune recette trouvée.</p>
 	{% endif %}
+	 {# Affichage de la pagination  #}
+    <nav class="flex justify-center">
+        {{ knp_pagination_render(recettes) }}
+    </nav>
+
+	
+
 
 {% endblock %}
