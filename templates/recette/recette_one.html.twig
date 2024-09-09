@@ -9,6 +9,8 @@
 	<div class="container mx-auto">
 		<h2 class="text-5xl text-center mt-10 mb-8">{{ recette.nom }}
 		</h2>
+		<h4 class="text-xl text-center mt-10 mb-8">Categorie: {{ recette.categorie }}
+		</h4>
 		{# Affichage des messages flash que vous aviez noté la recette#}
 		{% for type, messages in app.flashes %}
 			<div class="alert alert-{{ type }}">

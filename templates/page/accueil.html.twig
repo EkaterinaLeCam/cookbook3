@@ -9,7 +9,7 @@
 
 	{% if recettes is not empty %}
 		<h1 class="flex justify-center">Résultats de recherche pour "{{ app.request.query.get('q') }}"</h1>
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 			{% for item in recettes %}
 				<div class="group border border-gray-300 rounded-2xl">
 					<div class="flex items-center">
