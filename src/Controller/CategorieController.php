@@ -41,12 +41,12 @@ class CategorieController extends AbstractController
 
             // Ajouter des conditions de recherche à la requête
             $queryBuilder
-                ->where('r.title LIKE :query')
+                ->where('r.nom LIKE :query')
                 ->setParameter('query', '%' . $query . '%');
         }
 
         // Pagination
-        $pagination = $paginator->paginate(
+            $pagination = $paginator->paginate(
             $queryBuilder, /* query NOT result */
             $request->query->getInt('page', 1), /* page number */
             10 /* limit per page */
@@ -67,8 +67,7 @@ class CategorieController extends AbstractController
     public function show(
         Categorie $categorie,
         RecetteRepository $recetteRepository,
-        Request $request,
-        PaginatorInterface $paginator
+        Request $request
     ): Response {
         // Créer une instance de SearchData pour capturer les données du formulaire
         $searchData = new SearchData();
@@ -79,7 +78,7 @@ class CategorieController extends AbstractController
         // Gérer la requête pour extraire les données du formulaire
         $formSearch->handleRequest($request);
 
-        // Créer une instance de QueryBuilder pour la pagination
+        // Créer une instance de QueryBuilder pour récupérer les recettes associées à la catégorie
         $queryBuilder = $recetteRepository->createQueryBuilder('r')
             ->where('r.categorie = :categorie')
             ->setParameter('categorie', $categorie);
@@ -91,21 +90,17 @@ class CategorieController extends AbstractController
 
             // Ajouter des conditions de recherche à la requête
             $queryBuilder
-                ->andWhere('r.title LIKE :query')
+                ->andWhere('r.nom LIKE :query')
                 ->setParameter('query', '%' . $query . '%');
         }
 
-        // Pagination
-        $pagination = $paginator->paginate(
-            $queryBuilder, /* query NOT result */
-            $request->query->getInt('page', 1), /* page number */
-            10 /* limit per page */
-        );
+        // Exécuter la requête pour récupérer les résultats
+        $recettes = $queryBuilder->getQuery()->getResult();
 
         // Rendre la vue avec les recettes et le formulaire de recherche
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
-            'recettes' => $pagination,
+            'recettes' => $recettes,
             'formSearch' => $formSearch->createView(),
         ]);
     }

@@ -7,7 +7,7 @@
 {% block body %}
 	{#{{ dump(recette) }}#}
 	<div class="container mx-auto">
-		<h2 class="text-5xl text-center mt-24 mb-8">{{ recette.nom }}
+		<h2 class="text-5xl text-center mt-10 mb-8">{{ recette.nom }}
 		</h2>
 		{# Affichage des messages flash que vous aviez noté la recette#}
 		{% for type, messages in app.flashes %}

@@ -74,6 +74,8 @@ class CommentaireController extends AbstractController
 
             $em->persist($commentaire);
             $em->flush();
+            // Ajouter un flash message de succès
+            $this->addFlash('success', 'Votre commentaire a été ajoutée avec succès !');
 
             return $this->redirectToRoute('app_recette_one', [
                 'slug' => $recette->getSlug(),

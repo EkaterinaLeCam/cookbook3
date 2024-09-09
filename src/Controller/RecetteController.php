@@ -10,7 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class RecetteController extends AbstractController
 {
@@ -30,31 +30,33 @@ class RecetteController extends AbstractController
         // Gérer la requête pour extraire les données du formulaire
         $formSearch->handleRequest($request);
 
-        // Initialiser la query
+        // Créer une instance de QueryBuilder pour la recherche
         $queryBuilder = $recetteRepository->createQueryBuilder('r');
 
         // Vérifiez si le formulaire est soumis et valide
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            // Récupérer la valeur de recherche
             $query = $searchData->getQ();
-            // Ajoute des conditions de recherche à la requête
+
+            // Ajouter des conditions de recherche à la requête
             $queryBuilder
-                ->where('r.title LIKE :query')
+                ->andWhere('r.nom LIKE :query')
                 ->setParameter('query', '%' . $query . '%');
         }
 
         // Pagination
         $pagination = $paginator->paginate(
-            $queryBuilder, /* query NOT result */
-            $request->query->getInt('page', 1), /* page number */
-            10 /* limit per page */
+            $queryBuilder, // Utilisation de QueryBuilder pour la pagination
+            $request->query->getInt('page', 1), // Numéro de la page en cours
+            10 // Limite par page
         );
 
+        // Rendre la vue avec les recettes paginées et le formulaire de recherche
         return $this->render('recette/index.html.twig', [
             'recettes' => $pagination,
             'formSearch' => $formSearch->createView(),
         ]);
     }
-
 
     // Afficher une recette
     #[Route('/recette/{slug}', name: 'app_recette_one', methods: ['GET', 'POST'])]

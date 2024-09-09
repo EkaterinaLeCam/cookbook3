@@ -43,7 +43,7 @@ class AccueilController extends AbstractController
 
         // Ajouter des conditions de recherche à la requête
         $queryBuilder
-            ->where('r.title LIKE :query')
+            ->where('r.nom LIKE :query')
             ->setParameter('query', '%' . $query . '%');
     }
 
