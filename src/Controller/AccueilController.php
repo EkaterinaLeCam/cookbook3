@@ -20,52 +20,11 @@ use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository,
-    Request $request,
-    PaginatorInterface $paginator
-): Response {
-    // Créer une instance de SearchData pour capturer les données du formulaire
-    $searchData = new SearchData();
-
-    // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
-    $formSearch = $this->createForm(SearchType::class, $searchData);
-
-    // Gérer la requête pour extraire les données du formulaire
-    $formSearch->handleRequest($request);
-
-    // Créer une instance de QueryBuilder pour la pagination
-    $queryBuilder = $recetteRepository->createQueryBuilder('r');
-
-    // Vérifiez si le formulaire est soumis et valide
-    if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-        // Récupérer la valeur de recherche
-        $query = $searchData->getQ();
-
-        // Ajouter des conditions de recherche à la requête
-        $queryBuilder
-            ->where('r.nom LIKE :query')
-            ->setParameter('query', '%' . $query . '%');
-    }
-
-    // Pagination
-    $pagination = $paginator->paginate(
-        $queryBuilder, /* query NOT result */
-        $request->query->getInt('page', 1), /* page number */
-        10 /* limit per page */
-    );
-
-    return $this->render('page/accueil.html.twig', [
-        'recettes' => $pagination,
-        'formSearch' => $formSearch->createView(),
-    ]);
-}
-
-
-
-    #[Route('/conditions-generales', name: 'app_conditions_generales', methods: ['GET'])]
-    public function conditions_generale(RecetteRepository $recetteRepository, Request $request): Response
-    {
-
+    public function index(
+        RecetteRepository $recetteRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response {
         // Créer une instance de SearchData pour capturer les données du formulaire
         $searchData = new SearchData();
 
@@ -75,35 +34,85 @@ class AccueilController extends AbstractController
         // Gérer la requête pour extraire les données du formulaire
         $formSearch->handleRequest($request);
 
-        // Initialiser les résultats des recettes
-        $recettes = [];
+        // Créer une instance de QueryBuilder pour la pagination
+        $queryBuilder = $recetteRepository->createQueryBuilder('r');
 
         // Vérifiez si le formulaire est soumis et valide
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             // Récupérer la valeur de recherche
             $query = $searchData->getQ();
 
-            // Utiliser la méthode findByQuery du repository pour rechercher les recettes
-            $recettes = $recetteRepository->findByQuery($query);
-
-            // Rendre la vue avec les recettes et le formulaire de recherche
-            return $this->render('page/accueil.html.twig', [
-                'recettes' => $recettes,
-                'formSearch' => $formSearch->createView(),
-            ]);
+            // Ajouter des conditions de recherche à la requête
+            $queryBuilder
+                ->where('r.nom LIKE :query')
+                ->setParameter('query', '%' . $query . '%');
         }
 
-        // Si aucune recherche n'est faite, récupérer toutes les recettes
-        $recettes = $recetteRepository->findAll();
+        // Pagination
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            10 /* limit per page */
+        );
 
-        return $this->render('page/conditions-generales.html.twig', [
-            'recettes' => $recettes,
+        return $this->render('page/accueil.html.twig', [
+            'recettes' => $pagination,
             'formSearch' => $formSearch->createView(),
         ]);
     }
 
+
+
+    #[Route('/conditions-generales', name: 'app_conditions_generales', methods: ['GET'])]
+    public function conditions_generale(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
+    {
+
+        //Barre de recherche
+        // Créer une instance de SearchData pour capturer les données du formulaire
+        $searchData = new SearchData();
+
+        // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
+        $formSearch = $this->createForm(SearchType::class, $searchData);
+
+        // Gérer la requête pour extraire les données du formulaire
+        $formSearch->handleRequest($request);
+
+        // Créer une instance de QueryBuilder pour la pagination
+        $queryBuilder = $recetteRepository->createQueryBuilder('r');
+
+        // Vérifiez si le formulaire est soumis et valide
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            // Récupérer la valeur de recherche
+            $query = $searchData->getQ();
+
+            // Ajouter des conditions de recherche à la requête
+            $queryBuilder
+                ->where('r.nom LIKE :query')
+                ->setParameter('query', '%' . $query . '%');
+
+            // Pagination
+            $pagination = $paginator->paginate(
+                $queryBuilder, /* query NOT result */
+                $request->query->getInt('page', 1), /* page number */
+                10 /* limit per page */
+            );
+            // Rendre la vue avec les recettes et le formulaire de recherche
+            return $this->render('page/accueil.html.twig', [
+                'recettes' => $pagination,
+                'formSearch' => $formSearch->createView(),
+            ]);
+        } else {
+
+   
+
+        return $this->render('page/conditions-generales.html.twig', [
+           
+            'formSearch' => $formSearch->createView(),
+        ]);
+    }}
+
     #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
-    public function contact(RecetteRepository $recetteRepository, Request $request): Response
+    public function contact(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
     {
         //Barre de recherche
         // Créer une instance de SearchData pour capturer les données du formulaire
@@ -115,59 +124,68 @@ class AccueilController extends AbstractController
         // Gérer la requête pour extraire les données du formulaire
         $formSearch->handleRequest($request);
 
-        // Initialiser les résultats des recettes
-        $recettes = [];
+        // Créer une instance de QueryBuilder pour la pagination
+        $queryBuilder = $recetteRepository->createQueryBuilder('r');
 
         // Vérifiez si le formulaire est soumis et valide
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             // Récupérer la valeur de recherche
             $query = $searchData->getQ();
 
-            // Utiliser la méthode findByQuery du repository pour rechercher les recettes
-            $recettes = $recetteRepository->findByQuery($query);
+            // Ajouter des conditions de recherche à la requête
+            $queryBuilder
+                ->where('r.nom LIKE :query')
+                ->setParameter('query', '%' . $query . '%');
 
+            // Pagination
+            $pagination = $paginator->paginate(
+                $queryBuilder, /* query NOT result */
+                $request->query->getInt('page', 1), /* page number */
+                10 /* limit per page */
+            );
             // Rendre la vue avec les recettes et le formulaire de recherche
             return $this->render('page/accueil.html.twig', [
-                'recettes' => $recettes,
+                'recettes' => $pagination,
+                'formSearch' => $formSearch->createView(),
+            ]);
+        } else {
+            //Contact
+            // Importation du formulaire
+            $form = $this->createForm(ContactType::class);
+
+            // Saisir les données du formulaire
+            $form->handleRequest($request);
+
+            // Si le formulaire est valide
+            if ($form->isSubmitted() && $form->isValid()) {
+
+
+                // Traitement de l'upload
+                $file = $form->get('curriculum')->getData();
+                if ($form->get('curriculum')->getData()) {
+                    $cvFile = $form->get('curriculum')->getData();
+                    $originalFilename = pathinfo($cvFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $newFilename = $originalFilename . '-' . uniqid() . '.' . $cvFile->guessExtension();
+
+                    try {
+                        $cvFile->move(
+                            $this->getParameter('uploads'),
+                            $newFilename
+                        );
+                        $this->addFlash('success', 'Votre CV a bien été envoyé');
+                        return $this->redirectToRoute('app_contact');
+                    } catch (FileException $e) {
+                        $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de votre CV');
+                    }
+                }
+            }
+
+            return $this->render('page/contact.html.twig', [
+                'contactForm' => $form, // Transfert du formulaire au template
+           
                 'formSearch' => $formSearch->createView(),
             ]);
         }
-        //Contact
-        // Importation du formulaire
-        $form = $this->createForm(ContactType::class);
-
-        // Saisir les données du formulaire
-        $form->handleRequest($request);
-
-        // Si le formulaire est valide
-        if ($form->isSubmitted() && $form->isValid()) {
-
-
-            // Traitement de l'upload
-            $file = $form->get('curriculum')->getData();
-            if ($form->get('curriculum')->getData()) {
-                $cvFile = $form->get('curriculum')->getData();
-                $originalFilename = pathinfo($cvFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $cvFile->guessExtension();
-
-                try {
-                    $cvFile->move(
-                        $this->getParameter('uploads'),
-                        $newFilename
-                    );
-                    $this->addFlash('success', 'Votre CV a bien été envoyé');
-                    return $this->redirectToRoute('app_contact');
-                } catch (FileException $e) {
-                    $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de votre CV');
-                }
-            }
-        }
-
-        return $this->render('page/contact.html.twig', [
-            'contactForm' => $form, // Transfert du formulaire au template
-            'recettes' => $recettes,
-            'formSearch' => $formSearch->createView(),
-        ]);
     }
     #[Route('/navbarmobil', name: 'app_navbarmobil', methods: ['GET'])]
     public function navbar_mobil(): Response
