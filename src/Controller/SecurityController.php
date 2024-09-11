@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\SearchType;
 use App\Model\SearchData;
 use App\Repository\RecetteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,28 +18,43 @@ class SecurityController extends AbstractController
     public function login(
         AuthenticationUtils $authenticationUtils,
         RecetteRepository $recetteRepository,
-        Request $request
+        Request $request,  PaginatorInterface $paginator
     ): Response {
-        // Créer une instance de SearchData pour capturer les données du formulaire
-        $searchData = new SearchData();
+           // Créer une instance de SearchData pour capturer les données du formulaire
+           $searchData = new SearchData();
 
-        // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
-        $formSearch = $this->createForm(SearchType::class, $searchData);
-
-        // Gérer la requête pour extraire les données du formulaire
-        $formSearch->handleRequest($request);
-
-        // Initialiser les recettes à null et les charger conditionnellement
-        $recettes = $formSearch->isSubmitted() && $formSearch->isValid()
-            ? $recetteRepository->findByQuery($searchData->getQ())
-            : $recetteRepository->findAll();
-        if ($this->getUser()) {
-            
-            return $this->redirectToRoute('app_accueil', [
-                'recettes' => $recettes,
-                'formSearch' => $formSearch->createView(),
-            ]);
-        }
+           // Créer le formulaire de recherche en utilisant le type de formulaire SearchType
+           $formSearch = $this->createForm(SearchType::class, $searchData);
+   
+           // Gérer la requête pour extraire les données du formulaire
+           $formSearch->handleRequest($request);
+   
+           // Créer une instance de QueryBuilder pour la pagination
+           $queryBuilder = $recetteRepository->createQueryBuilder('r');
+   
+           // Vérifiez si le formulaire est soumis et valide
+           if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+               // Récupérer la valeur de recherche
+               $query = $searchData->getQ();
+   
+               // Ajouter des conditions de recherche à la requête
+               $queryBuilder
+                   ->where('r.nom LIKE :query')
+                   ->setParameter('query', '%' . $query . '%');
+           
+   
+           // Pagination
+           $pagination = $paginator->paginate(
+               $queryBuilder, /* query NOT result */
+               $request->query->getInt('page', 1), /* page number */
+               10 /* limit per page */
+           );
+   
+           return $this->render('page/accueil.html.twig', [
+               'recettes' => $pagination,
+               'formSearch' => $formSearch->createView(),
+           ]);
+       } else {
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -48,9 +64,9 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername, 
             'error' => $error,
-            'recettes' => $recettes,
+           
             'formSearch' => $formSearch->createView(),]);
-    }
+    }}
 
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
