@@ -46,7 +46,8 @@
 							{{ item.nom }}
 						</h4>
 						<p class="text-gray-500 leading-6 mb-10">
-							{{ item.instruction|slice(0, 80) }}...
+							{% set instruction = item.instruction|slice(0, 80) %}
+							{{ instruction|raw }}...
 						</p>
 						<a href={{ path('app_recette_one', { slug: item.slug } )}} class="cursor-pointer text-lg text-indigo-600 font-semibold">
 							Voir la fiche
