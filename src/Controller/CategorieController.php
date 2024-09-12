@@ -53,7 +53,7 @@ class CategorieController extends AbstractController
         return $this->render('categorie/index.html.twig', [
             'categories' => $categorieRepository->findBy(
                 [],
-                ['nom' => 'ASC']
+                ['nom' => 'DESC']
             ),
             'recettes' => $pagination,
             'formSearch' => $formSearch->createView(),

@@ -42,7 +42,7 @@ class RecetteCrudController extends AbstractCrudController
                 ->setIcon('cube')
                 ->setHelp('Saisissez le nom de la recette'),
             TextField::new('nom'),
-            TextField::new('slug'),
+            TextField::new('slug')->onlyOnDetail(),
 
             AssociationField::new('categorie')
                 ->setHelp('Choisissez la categorie de la recette'),
@@ -61,24 +61,24 @@ class RecetteCrudController extends AbstractCrudController
 
             //AssociationField::new('mesures'),
 
-            CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class),
+            CollectionField::new('mesures')->useEntryCrudForm(MesureCrudController::class)->hideOnIndex(),
 
             //  CollectionField::new('ingredients')->useEntryCrudForm(IngredientCrudController::class),
 
 
             FormField::addPanel('Les instructions')
                 ->setIcon('utensils'),
-            IntegerField::new('portion')->setHelp('Saisissez le nombre de portions'),
+            IntegerField::new('portion')->setHelp('Saisissez le nombre de portions')->hideOnIndex(),
 
 
 
-            TextField::new('pays')->setHelp('Saisissez le pays d\'origine du plat'),
-            IntegerField::new('preparation')->setHelp('Saisissez le temps de preparation'),
-            IntegerField::new('cuisson')->setHelp('Saisissez le temps de cuisson'),
-            IntegerField::new('repos')->setHelp('Saisissez le temps de repos'),
+            CountryField::new('pays')->setHelp('Saisissez le pays d\'origine du plat')->hideOnIndex(),
+            IntegerField::new('preparation')->setHelp('Saisissez le temps de preparation')->hideOnIndex(),
+            IntegerField::new('cuisson')->setHelp('Saisissez le temps de cuisson')->hideOnIndex(),
+            IntegerField::new('repos')->setHelp('Saisissez le temps de repos')->hideOnIndex(),
 
 
-            TextareaField::new('instruction')->setHelp('Saisissez les étapes de la préparation de recette'),
+            TextEditorField::new('instruction')->setHelp('Saisissez les étapes de la préparation de recette'),
 
             BooleanField::new('brouillon')->setHelp('Ne pas publier pour le moment'),
             FormField::addRow(),
