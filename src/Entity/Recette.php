@@ -87,13 +87,14 @@ class Recette
     public function __construct()
     {
         $slug = new Slugify();
-
+        $this->nom = 'Nouvelle recette';
         $this->notes = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->brouillon = true;
         $this->image = "default.png";
         $this->mesures = new ArrayCollection();
+        $this->slug = $slug->slugify($this->nom);
     }
 
     #[ORM\PrePersist]
