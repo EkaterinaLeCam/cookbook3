@@ -20,6 +20,7 @@ class NoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        // ChoiceType::class, tu mets le choix de 1 à 5.
         ->add('etoile', IntegerType::class, [
             'label' => 'Votre note',
             'required' => true,
