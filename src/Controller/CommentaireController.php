@@ -37,19 +37,7 @@ class CommentaireController extends AbstractController
         Request $request,
         ModerationService $moderationService,
     ): Response {
-        // Barre de recherche
-        $searchData = new SearchData();
-        $formSearch = $this->createForm(SearchType::class, $searchData);
-        $formSearch->handleRequest($request);
-
-        // Gestion de la recherche
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $recettes = $recetteRepository->findByQuery($searchData->getQ());
-            return $this->render('page/accueil.html.twig', [
-                'recettes' => $recettes,
-                'formSearch' => $formSearch->createView(),
-            ]);
-        }
+ 
 
         // Récupération de la recette par ID
         $recette = $recetteRepository->find($request->get('id'));
@@ -85,7 +73,7 @@ class CommentaireController extends AbstractController
         return $this->render('commentaire/new.html.twig', [
             'form' => $form->createView(),
             'recette' => $recette,
-            'formSearch' => $formSearch->createView(),
+      
         ]);
     }
 

@@ -6,9 +6,11 @@
 
 
 {% block body %}
+	{# Formulaire de recherche #}
+	{% include 'partials/_search_data.html.twig'%}
 
 	{% if recettes is not empty %}
-		
+
 		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
 			{% for item in recettes %}
 				<div class="group border border-gray-300 rounded-2xl">
@@ -45,12 +47,10 @@
 	{% else %}
 		<p>Aucune recette n'a pas été trouvée.</p>
 	{% endif %}
-	 {# Affichage de la pagination  #}
-    <nav class="flex justify-center">
-        {{ knp_pagination_render(recettes) }}
-    </nav>
-
-	
+	{# Affichage de la pagination  #}
+	<nav class="flex justify-center">
+		{{ knp_pagination_render(recettes) }}
+	</nav>
 
 
 {% endblock %}

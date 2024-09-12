@@ -28,25 +28,11 @@ class NoteController extends AbstractController
     public function nouvelleNote(
         int $id,
         RecetteRepository $recetteRepository,
-        NoteRepository $noteRepository,
+        
         EntityManagerInterface $em,
         Request $request
     ): Response {
-        // Barre de recherche
-        $searchData = new SearchData();
-        $formSearch = $this->createForm(SearchType::class, $searchData);
-        $formSearch->handleRequest($request);
-
-        $recettes = [];
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $query = $searchData->getQ();
-            $recettes = $recetteRepository->findByQuery($query);
-
-            return $this->render('page/accueil.html.twig', [
-                'recettes' => $recettes,
-                'formSearch' => $formSearch->createView(),
-            ]);
-        }
+        
 
         $recette = $recetteRepository->find($id);
         if (!$recette) {
@@ -74,7 +60,7 @@ class NoteController extends AbstractController
         return $this->render('note/note_new.html.twig', [
             'formNote' => $formNote->createView(),
             'recette' => $recette,
-            'formSearch' => $formSearch->createView(),
+           
         ]);
     }
 

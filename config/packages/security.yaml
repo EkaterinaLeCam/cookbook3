@@ -41,6 +41,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/commentaires, roles: ROLE_USER }
+        - { path: ^/notes, roles: ROLE_USER}
 
 when@test:
     security:

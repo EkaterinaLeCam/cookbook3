@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+{# Formulaire de recherche #}
+	{% include 'partials/_search_data.html.twig'%}
 
     <h2 class="font-manrope text-4xl font-bold text-gray-900 text-center mb-16">
         Tous les recettes de la {{ categorie.nom }}
