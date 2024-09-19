@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CommentaireType extends AbstractType
 {
@@ -21,6 +23,17 @@ class CommentaireType extends AbstractType
                 'label' => 'Écrivez votre commentaire',
                 'label_attr' => [
                     'class' => 'mb-3 flex items-center mb-2 text-gray-600 text-sm font-medium'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre message',
+                    ]),
+                    new Length([
+                        'min' => 5,
+                        'minMessage' => 'Votre message doit contenir au moins {{ limit }} caractères',
+                        'max' => 1000,
+                        'maxMessage' => 'Votre message ne peut pas dépasser {{ limit }} caractères'
+                    ])
                 ],
                 'attr' => [
                     'class' => 'mb-3 rounded-md border border-gray-300 shadow-sm',
