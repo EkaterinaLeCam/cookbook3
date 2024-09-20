@@ -24,7 +24,11 @@
 						<a class="flex items-center justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-indigo-700 transition-all duration-500 mb-2 lg:mr-6 lg:mb-0" href="{{ path('app_conditions_generales') }}">Conditions Générales</a>
 					</li>
 					<li class="relative">
+					 {% if is_granted('ROLE_ADMIN') %}
 						<a class="flex items-center justify-between text-gray-500 text-sm lg:text-base font-medium hover:text-indigo-700 transition-all duration-500 mb-2 lg:mr-6 lg:mb-0" href="{{ path('admin') }}">Administration</a>
+                    {% else %}
+					<p></p>
+                    {% endif %}
 					</li>
 				</ul>
 			</div>
