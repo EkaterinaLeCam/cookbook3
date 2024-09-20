@@ -54,7 +54,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ], TextType::class, [
-                'label' => 'Passeword'
+                'label' => 'Mot de Passe'
             ]);
     }
 
