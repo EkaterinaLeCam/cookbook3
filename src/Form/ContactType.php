@@ -26,7 +26,7 @@ class ContactType extends AbstractType
                 'label' => 'Votre email',
             ])
             ->add('curriculum', FileType::class, [
-                'label' => 'Envoyer un CV',
+                'label' => 'Pièce jointe',
                 'required' => false,
             ])
             ->add('message', TextareaType::class, [
@@ -59,7 +59,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+          
         ]);
     }
 }

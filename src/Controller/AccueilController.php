@@ -138,10 +138,10 @@ class AccueilController extends AbstractController
                             $this->getParameter('uploads'),
                             $newFilename
                         );
-                        $this->addFlash('success', 'Votre CV a bien été envoyé');
+                        $this->addFlash('success', 'Votre pièce jointe a bien été envoyée');
                         return $this->redirectToRoute('app_contact');
                     } catch (FileException $e) {
-                        $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de votre CV');
+                        $this->addFlash('danger', 'Une erreur est survenue lors de l\'upload de votre pièce jointe');
                     }
                 }
             }
