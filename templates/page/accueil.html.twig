@@ -11,14 +11,14 @@
 
 	{% if recettes is not empty %}
 
-		<div class="grid grid-cols-4 gap-4">
+		<div class="recette">
 			{% for item in recettes %}
-				<div class="group border border-gray-500 rounded-2xl">
-					<div class="flex items-center">
-						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class="rounded-t-2xl w-full">
+				<div class="rounded-2xl">
+					<div class="flex items-center ">
+						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class=" rounded-t-2xl w-full">
 					</div>
-					<div class="flex flex-col flex justify-around  p-4 mb-5 lg:p-6 transition-all duration-300 rounded-b-2xl group-hover:bg-gray-50">
-						<span class="text-indigo-600 font-medium mb-3 block">
+					<div class="flex flex-col flex justify-around  p-4 mb-6 lg:p-6 transition-all duration-500 rounded-b-2xl group-hover:bg-gray-500 group border border-gray-300 ">
+						<span class="text-indigo-600 font-medium mb-2 block">
 							{% set total = 0 %}
 							{% for note in item.notes %}
 								{% set total = total + note.etoile %}

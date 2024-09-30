@@ -78,3 +78,25 @@
   font-size: 1rem;
   font-weight: 500;
 }
+
+@media (width: 1000px) {
+  .recette{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }}
+@media (width: 600px) {
+.recette{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}}
+@media (min-width: 300px) {
+  .recette{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }}
