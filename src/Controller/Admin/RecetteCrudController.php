@@ -42,7 +42,7 @@ class RecetteCrudController extends AbstractCrudController
                 ->setIcon('cube')
                 ->setHelp('Saisissez le nom de la recette'),
             TextField::new('nom'),
-            TextField::new('slug')->onlyOnDetail(),
+            TextField::new('slug')->setHelp('Saisissez le nom de slug'),
 
             AssociationField::new('categorie')
                 ->setHelp('Choisissez la categorie de la recette'),

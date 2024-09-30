@@ -10,14 +10,14 @@
 	{% include 'partials/_search_data.html.twig'%}
 
 	{% if recettes is not empty %}
-
-		<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-			{% for item in recettes %}
-				<div class="group border border-gray-300 rounded-2xl">
+{% for item in recettes %}
+		<div class="grid grid-cols-2 gap-4">
+			
+				<div class="group border border-gray-500 rounded-2xl">
 					<div class="flex items-center">
-						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class="rounded-t-2xl w-full">
+						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class="rounded-t-2xl w-full w-[130px] h-[130px]">
 					</div>
-					<div class="flex flex-col justify-between p-4 lg:p-6 transition-all duration-300 rounded-b-2xl group-hover:bg-gray-50">
+					<div class="flex flex-col flex justify-around  p-4 mb-5 lg:p-6 transition-all duration-300 rounded-b-2xl group-hover:bg-gray-50">
 						<span class="text-indigo-600 font-medium mb-3 block">
 							{% set total = 0 %}
 							{% for note in item.notes %}
@@ -42,9 +42,9 @@
 							Voir la fiche
 						</a>
 					</div>
-				</div>
+				</div>	</div>
 			{% endfor %}
-		</div>
+	
 	{% else %}
 		<p>Aucune recette n'a pas été trouvée.</p>
 	{% endif %}
