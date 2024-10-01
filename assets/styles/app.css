@@ -11,6 +11,10 @@
   gap: 0.5rem;
   margin-top: 1rem;
 }
+main{
+  margin-left:10px;
+  margin-right:10px;
+}
 
 .pagination a,
 .pagination span {
