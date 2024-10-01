@@ -78,8 +78,8 @@
   font-size: 1rem;
   font-weight: 500;
 }
-
-@media (width: 1000px) {
+/* Grid recettes */
+@media (max-width: 1000px) {
   .recette{
     display: grid;
     grid-template-columns: repeat(3, 1fr);

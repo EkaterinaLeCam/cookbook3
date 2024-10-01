@@ -11,9 +11,9 @@
 
 	{% if recettes is not empty %}
 
-		<div class="recette">
+		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{% for item in recettes %}
-				<div class="rounded-2xl">
+				<div class="group  rounded-2xl">
 					<div class="flex items-center ">
 						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class=" rounded-t-2xl w-full">
 					</div>
