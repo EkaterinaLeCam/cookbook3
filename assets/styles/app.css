@@ -11,9 +11,23 @@
   gap: 0.5rem;
   margin-top: 1rem;
 }
+/* Position de la recette */
 main{
+  display:column;
+  justify-content: center;
   margin-left:10px;
   margin-right:10px;
+
+}
+.recette{
+  display:flex;
+  justify-content:center;
+}
+
+
+.foto{
+  width: 428px;
+  height: 428px;
 }
 
 .pagination a,
@@ -82,25 +96,4 @@ main{
   font-size: 1rem;
   font-weight: 500;
 }
-/* Grid recettes */
-@media (max-width: 1000px) {
-  .recette{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-  }}
-@media (width: 600px) {
-.recette{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
-}}
-@media (min-width: 300px) {
-  .recette{
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-  }}
+
