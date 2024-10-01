@@ -10,9 +10,10 @@
 	{% include 'partials/_search_data.html.twig'%}
 
 	{% if recettes is not empty %}
-
+	
 		<div class="recette ">
 			{% for item in recettes %}
+			
 			<div class="flex-col">
 				<div class="group  rounded-2xl flex-col w-full">
 				
@@ -45,7 +46,7 @@
 						</a>
 					</div>
 				</div>
-				</div>
+			
 			{% endfor %}
 		</div>
 	{% else %}

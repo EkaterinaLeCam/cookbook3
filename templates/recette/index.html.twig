@@ -6,16 +6,19 @@
 {% block body %}
 {# Formulaire de recherche #}
 	{% include 'partials/_search_data.html.twig'%}
-	<section class="py-24 ">
-		<h2 class="font-manrope text-4xl font-bold text-gray-900 text-center mb-16">Tous les recettes</h2>
-		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+		<h2 class="font-manrope text-4xl font-bold text-gray-900 text-center mb-5">Tous les recettes</h2>
+		<div class="recette ">
 			{% for item in recettes %}
-				<div class="group border border-gray-300 rounded-2xl flex items-center ">
-					<div class="flex items-center">
-						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class="rounded-t-2xl w-full">
+			
+			<div class="flex-col">
+				<div class="group  rounded-2xl flex-col w-full">
+				
+					<div class="flex items-center rounded-t-2xl w-full ">
+						<img src={{ asset('uploads/recettes/' ~ item.image) }} alt="blogs tailwind section" class=" foto rounded-t-2xl ">
 					</div>
-					<div class="flex flex-col justify-between p-4 lg:p-6 transition-all duration-300 rounded-b-2xl group-hover:bg-gray-50">
-						<span class="text-indigo-600 font-medium mb-3 block">
+					<div class="align-items: stretch p-4 mb-2 lg:p-6 transition-all duration-500 rounded-b-2xl group-hover:bg-gray-200 group border border-gray-300 ">
+						<span class="text-indigo-600 font-medium mb-2 block">
 							{% set total = 0 %}
 							{% for note in item.notes %}
 								{% set total = total + note.etoile %}
@@ -28,22 +31,24 @@
 								notes
 							{% endif %}
 						</span>
-						<h4 class="text-xl text-gray-900 font-medium leading-8 mb-5 min-h-20">
+						<h5 class="text-xl text-gray-900 font-medium leading-8  ">
 							{{ item.nom }}
-						</h4>
-						<p class="text-gray-500 leading-6 mb-10">
-							{% set instruction = item.instruction|slice(0, 79) %}
+						</h5>
+						<p class="text-gray-500 leading-6 mb-2">
+							{% set instruction = item.instruction|slice(0, 80) %}
 							{{ instruction|raw }}...
-						</p>
+						</p></br>
 						<a href={{ path('app_recette_one', { slug: item.slug } )}} class="cursor-pointer text-lg text-indigo-600 font-semibold">
 							Voir la fiche
 						</a>
 					</div>
 				</div>
+			
 			{% endfor %}
+		</div>
 
 
-		</section>
+	
 		{# Affichage de la pagination #}
 		<div class="pagination">
 			{{ knp_pagination_render(recettes) }}
